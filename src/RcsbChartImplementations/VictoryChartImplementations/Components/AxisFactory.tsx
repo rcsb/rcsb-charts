@@ -3,7 +3,6 @@ import * as React from "react";
 import {VictoryAxisProps} from "victory-axis";
 import {ChartTools} from "../../../RcsbChartDataProvider/ChartTools";
 import {ChartConfigInterface} from "../../../RcsbChartComponent/ChartConfigInterface";
-import {Operator} from "../../../../RcsbUtils/Helpers/Operator";
 
 export class AxisFactory {
 
@@ -20,7 +19,7 @@ export class AxisFactory {
             }}
             tickFormat={
                 (t: number)=>{
-                    return (!t.toString().includes('.') ? Operator.digitGrouping(t) : "");
+                    return (!t.toString().includes('.') ? ChartTools.digitGrouping(t) : "");
                 }
             }
             axisLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize",{})}} />}

@@ -1,4 +1,4 @@
-# rcsb-saguaro-app
+# rcsb-charts
 
 RCSB PDB Charts is the charting library to display histograms on RCSB.org. It defines an abstraction layer between data and charting libraries. 
 Currently, ony a Victory based implementation is available.
