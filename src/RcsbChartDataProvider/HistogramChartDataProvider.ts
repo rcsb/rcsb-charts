@@ -8,7 +8,7 @@ export class HistogramChartDataProvider implements ChartDataProviderInterface{
     private data: ChartDataInterface[];
 
     public setData(chartData: ChartObjectInterface[][], config?: ChartConfigInterface):void {
-        this.config = config;
+        this.config = config ?? {};
         const data: ChartDataInterface[] = ChartTools.normalizeData(ChartTools.labelsAsNumber(chartData));
         const barData: ChartDataInterface[] = this.transformData(data)
         this.data = barData.sort((r,s)=>((r.x as number)-(s.x as number)));
@@ -19,12 +19,13 @@ export class HistogramChartDataProvider implements ChartDataProviderInterface{
     }
 
     public xDomain(): [number, number]{
+        const dx: number = (this.config?.histogramBinIncrement ? this.config?.histogramBinIncrement*0.5 : 0);
         return [
-            this.config.domainMinValue ?? Math.floor(Math.min(...this.data.map(d=>d.x as number))),
+            this.config?.domainMinValue ?? Math.floor(Math.min(...this.data.map(d=>d.x as number))) - dx,
             this.config?.mergeDomainMaxValue ?
-                Math.ceil(this.config?.mergeDomainMaxValue+this.config.histogramBinIncrement)
+                Math.ceil(this.config?.mergeDomainMaxValue) + dx
                 :
-                Math.ceil(Math.max(...this.data.map(d=>d.x as number))+this.config.histogramBinIncrement)
+                Math.ceil(Math.max(...this.data.map(d=>d.x as number))) + dx
         ]
     }
 
@@ -46,7 +47,7 @@ export class HistogramChartDataProvider implements ChartDataProviderInterface{
         if(this.config?.mergeDomainMaxValue) {
             out = ChartTools.mergeDomainMaxValue(data, this.config.mergeDomainMaxValue);
         }
-        return out.map(d=>({x:(d.x as number)+this.config.histogramBinIncrement*0.5,y:d.y, isLabel:true}));
+        return out.map(d=>({x:(d.x as number),y:d.y, isLabel:true}));
     }
 
 }

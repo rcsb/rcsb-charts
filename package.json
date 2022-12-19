@@ -7,7 +7,9 @@
     "build/dist"
   ],
   "scripts": {
-    "buildApp": "npm run cleanAll && npm run tsc && npm run build && npm run clean",
+    "devServer": "webpack-dev-server --config webpack.server.dev.config.js",
+    "buildApp": "npm run cleanAll && npm run tsc && npm run copyCss && npm run build && npm run clean",
+    "copyCss": "ncp src/RcsbChartComponent/Components/scss build/src/RcsbChartComponent/Components/scss",
     "build": "webpack --config ./webpack.config.js",
     "tsc": "tsc",
     "clean": "del-cli build/src",
@@ -48,17 +50,16 @@
     "css-loader": "^6.7.1",
     "del-cli": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "lodash": "^4.17.21",
     "ncp": "^2.0.0",
     "path-browserify": "^1.0.1",
     "raw-loader": "^4.0.2",
-    "react": "^18.1.0",
-    "react-bootstrap": "^2.5.0",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-draggable": "^4.4.5",
+    "rxjs": "^7.5.5",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
     "stream-browserify": "^3.0.0",
-    "string-to-color": "^2.2.2",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
     "ts-node": "^10.9.1",
@@ -69,12 +70,12 @@
     "victory": "^36.6.8",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3",
     "worker-loader": "^3.0.8"
   },
-  "dependencies": {
-    "react-select": "^5.4.0",
-    "rxjs": "^7.5.5",
-    "victory": "^36.5.0"
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "bugs": {
     "url": "https://github.com/rcsb/rcsb-saguaro-app/issues"
@@ -83,5 +84,8 @@
   "directories": {
     "doc": "docs",
     "example": "examples"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3"
   }
 }

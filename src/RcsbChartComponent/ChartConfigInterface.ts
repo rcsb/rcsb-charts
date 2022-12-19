@@ -5,14 +5,13 @@ export interface ChartObjectInterface {
     label: string|number;
     population: number;
     objectConfig?:{
-        objectId?:string;
+        objectId?:any;
         color?:string;
     };
 }
 
 export type BarClickCallbackType = (datum:ChartDataInterface, data:ChartDataInterface[], e:React.MouseEvent<any>)=>void;
 export interface ChartConfigInterface {
-    mergeGroupSize?: number;
     mergeDomainMaxValue?:number;
     mostPopulatedGroups?: number;
     mergeName?: string;
@@ -25,7 +24,7 @@ export interface ChartConfigInterface {
     axisLabel?:string
     barClickCallback?:BarClickCallbackType;
     sort?:(b: ChartDataInterface, a: ChartDataInterface) => number;
-    tooltipText?:(a: ChartDataValuesInterface) => string;
+    tooltipText?:(a: ChartDataValuesInterface) => string|undefined;
     chartDisplayConfig?: Partial<ChartDisplayConfigInterface>;
 }
 export interface ChartDisplayConfigInterface {

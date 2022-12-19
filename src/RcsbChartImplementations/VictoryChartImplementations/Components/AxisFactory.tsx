@@ -27,18 +27,18 @@ export class AxisFactory {
         />);
     }
 
-    public static getRegularAxis(config: ChartConfigInterface): JSX.Element {
+    public static getRegularAxis(config: ChartConfigInterface|undefined): JSX.Element {
         return (<VictoryAxis
             tickFormat={(t) => {
-                if(config.mergeDomainMaxValue){
-                    if(parseFloat(t)<=config.mergeDomainMaxValue)
+                if(config?.mergeDomainMaxValue){
+                    if(parseFloat(t)<=config?.mergeDomainMaxValue)
                         return t;
                     else
                         return "";
                 }
                 return t;
             }}
-            label={config.axisLabel}
+            label={config?.axisLabel}
             axisLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize", {})}} />}
             tickLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize", {})}} />}
         />);

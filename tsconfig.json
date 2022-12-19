@@ -13,7 +13,7 @@
     "allowJs": true,
     "sourceMap": false,
     //"noUnusedLocals": true,
-    //"strictNullChecks": true,
+    "strictNullChecks": true,
     "strictFunctionTypes": true,
     "declaration": true,
     "declarationDir": "./build/dist",

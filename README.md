@@ -10,7 +10,16 @@ Currently, ony a Victory based implementation is available.
 `<script src="https://cdn.jsdelivr.net/npm/@rcsb/rcsb-charts/build/dist/charts.js" type="text/javascript"></script>`
 
 ### Testing 
-- TODO
+Different testing example are available in the `src/RcsbChartExamples` folder
+- `npm install`
+- `npm run devServer`
+
+Go to:
+
+- `http://localhost:9000/SingleBars.html`
+- `http://localhost:9000/SingleHistogram.html`
+- `http://localhost:9000/StackHistogram.html`
+
 
 ### JavaScript Examples
 - TODO
@@ -20,17 +29,16 @@ TODO
 
 ### Interfaces 
 ```typescript
-interface AbstractChartInterface {
+interface ChartInterface {
     data: ChartObjectInterface[][];
-    subscribe? (f:(x:ObservedDataInterface)=>void, attr?:string): Subscription
-    chartConfig?:ChartConfigInterface;
-    attributeName:string;
+    dataProvider: ChartDataProviderInterface;
     chartComponentImplementation: AbstractChartImplementationType;
+    chartConfig?:ChartConfigInterface;
 }
 ```
 
 ```typescript
-export interface ChartObjectInterface {
+interface ChartObjectInterface {
     label: string|number;
     population: number;
     objectConfig?:{
@@ -40,10 +48,21 @@ export interface ChartObjectInterface {
 }
 ```
 
+```typescript
+interface ChartDataProviderInterface extends ChartDataReaderInterface {
+    setData(data: ChartObjectInterface[][],  config: ChartConfigInterface): void;
+}
+
+interface ChartDataReaderInterface {
+    getChartData(): {data: ChartDataInterface[]; excludedData?:ChartDataInterface[]}
+    xDomain(): [number, number] | undefined;
+    tickValues(): string[] | number[] | undefined
+}
+```
+
 ### React Classes
 - Abstraction layer
-  - `BarChartComponent` 
-  - `HistogramChartComponent`
+  - `ChartComponent<ChartInterface>` 
 - Implementation layer
   - `VictoryBarChartComponent`
   - `VictoryHistogramChartComponent`

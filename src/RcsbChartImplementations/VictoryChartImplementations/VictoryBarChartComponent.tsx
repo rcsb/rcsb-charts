@@ -1,4 +1,4 @@
-import {AbstractChartImplementation} from "../../RcsbChartComponent/AbstractChartImplementation";
+import {AbstractChartImplementation} from "../AbstractChartImplementation";
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {AxisFactory} from "./Components/AxisFactory";
 import {Bar, VictoryAxis, VictoryBar, VictoryChart, VictoryStack} from "victory";
@@ -12,7 +12,7 @@ import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChart
 export class VictoryBarChartComponent extends AbstractChartImplementation {
     render():JSX.Element {
         const {data}: {data: ChartDataInterface[]; excludedData?:ChartDataInterface[];} = this.props.dataProvider.getChartData();
-        const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig.chartDisplayConfig
+        const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
         return (<VictoryChart
             domainPadding={{ x: ChartTools.getConfig<number>("xDomainPadding",displayConfig) }}
             padding={{left:ChartTools.getConfig<number>("paddingLeft", displayConfig), top:ChartTools.getConfig<number>("paddingTopLarge",displayConfig), right:ChartTools.getConfig<number>("paddingRight",displayConfig)}}
@@ -20,7 +20,7 @@ export class VictoryBarChartComponent extends AbstractChartImplementation {
             width={this.props.width}
             scale={{y:"linear", x:"linear"}}
         >
-            {AxisFactory.getDependentAxis({orientation:"top", label:this.props.chartConfig.axisLabel})}
+            {AxisFactory.getDependentAxis({orientation:"top", label:this.props.chartConfig?.axisLabel})}
             {stack(data, this.props.chartConfig)}
             <VictoryAxis tickLabelComponent={<LabelComponent/>} />
         </VictoryChart>);
@@ -35,13 +35,14 @@ function stack(data:ChartDataInterface[], chartConfig?: ChartConfigInterface): J
                 ...d,
                 y:d.y[0].value,
                 color:d.y[0].color,
+                id:d.y[0].id,
                 values:d.y.map(v=>v.value),
                 index:0
             })),
             0,
             "#5e94c3",
             <BarComponent barClick={chartConfig?.barClickCallback}/>,
-            TooltipFactory.getTooltip({dx:15, tooltipText:chartConfig?.tooltipText}),
+            chartConfig?.tooltipText ? TooltipFactory.getTooltip({dx:15, tooltipText:chartConfig?.tooltipText}) : undefined,
             chartConfig?.chartDisplayConfig
         )}
         {
@@ -52,13 +53,14 @@ function stack(data:ChartDataInterface[], chartConfig?: ChartConfigInterface): J
                             ...d,
                             y:d.y[n+1].value,
                             color:d.y[n+1].color,
+                            id:d.y[n+1].id,
                             values:d.y.map(v=>v.value),
                             index:n+1
                         })),
                         n+1,
                         "#d0d0d0",
                         <BarComponent />,
-                        undefined,
+                        chartConfig?.tooltipText ? TooltipFactory.getTooltip({dx:15, tooltipText:chartConfig?.tooltipText}) : undefined,
                         chartConfig?.chartDisplayConfig
                     )
                 )
@@ -81,7 +83,7 @@ function bar(data:ChartDataValuesInterface[], index:number, color: string, barCo
         data={data}
         categories={{x:data.map(d=>d.x.toString())}}
         dataComponent={barComp ?? <Bar />}
-        labels={labelComponent ? ()=>undefined : undefined}
+        labels={labelComponent ? ()=>null : undefined}
         labelComponent={labelComponent}
-    />)  : null;
+    />) : <></>;
 }

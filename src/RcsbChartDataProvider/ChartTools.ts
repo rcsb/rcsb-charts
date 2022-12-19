@@ -18,7 +18,7 @@ export class ChartTools {
     private static readonly fontFamily: string = "\"Helvetica Neue\",Helvetica,Arial,sans-serif";
     private static readonly fontSize: number = 12;
 
-    public static getConfig<T>(key: keyof ChartDisplayConfigInterface, chartDisplayConfig:Partial<ChartDisplayConfigInterface>): T {
+    public static getConfig<T>(key: keyof ChartDisplayConfigInterface, chartDisplayConfig?:Partial<ChartDisplayConfigInterface>): T {
         return ((chartDisplayConfig && (typeof chartDisplayConfig[key] === "string" || typeof chartDisplayConfig[key] === "number")) ? chartDisplayConfig[key] : this[key]) as unknown as T;
     }
 
@@ -30,7 +30,7 @@ export class ChartTools {
         }));
         const overflow = data.filter(d => parseFloat(d.x as string) >= maxValue);
         if(overflow?.length > 0){
-            const others: number[] = overflow.reduce((prev, curr) => {
+            const others: number[] = overflow.reduce<number[]>((prev, curr) => {
                 if(prev.length == 0)
                     return curr.y.map(e=>e.value)
                 else
@@ -65,14 +65,13 @@ export class ChartTools {
             dataMap.set(d.label,{
                 x:d.label,
                 y:[],
-                id:d.objectConfig?.objectId,
                 isLabel:true
             });
         });
         chartData.forEach(dataGroup=>{
             Array.from(dataMap.keys()).forEach(key=>{
-                const d: ChartObjectInterface = dataGroup.find(d=>d.label==key);
-                dataMap.get(key).y.push({value:d?.population ?? 0, color: d?.objectConfig?.color});
+                const d: ChartObjectInterface | undefined = dataGroup.find(d=>d.label==key);
+                dataMap.get(key)?.y.push({value:d?.population ?? 0, color: d?.objectConfig?.color, id: d?.objectConfig?.objectId});
             });
         });
         return Array.from(dataMap.values());

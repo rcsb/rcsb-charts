@@ -97,7 +97,9 @@ function formatLabel(text: string): LabelComponentState {
 
 function displayTextWidth(text: string, suffix?: string): number {
     const canvas: HTMLCanvasElement = document.createElement<"canvas">("canvas");
-    const context: CanvasRenderingContext2D = canvas.getContext("2d");
+    const context: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    if(!context)
+        throw "Context 2D not available"
     let metrics = context.measureText(suffix ? text+suffix : text);
     return Math.ceil(metrics.width);
 }

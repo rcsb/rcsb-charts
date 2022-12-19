@@ -1,7 +1,8 @@
 const path = require('path');
 
 const commonConfig = {
-    mode: "production",
+    mode: "development",
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -10,10 +11,6 @@ const commonConfig = {
                 exclude: [/node_modules/]
             },
             {
-                test: /\.(graphql|gql)$/,
-                exclude: /node_modules/,
-                loader: 'raw-loader'
-            },{
                 test: /\.s?css$/,
                 use: ['style-loader', {
                     loader: 'css-loader',
@@ -36,6 +33,10 @@ const commonConfig = {
             path: require.resolve('path-browserify'),
             stream: require.resolve('stream-browserify')
         }
+    },
+    externals: {
+        "react": "commonjs react",
+        "react-dom": "commonjs react-dom"
     }
 };
 
@@ -46,8 +47,9 @@ const webChart = {
     },
     output: {
         filename: '[name].js',
-        library: 'RcsbCharts',
-        libraryTarget: 'umd',
+        library: {
+            type:'commonjs'
+        },
         umdNamedDefine: true,
         path: path.resolve(__dirname, 'build/dist')
     }

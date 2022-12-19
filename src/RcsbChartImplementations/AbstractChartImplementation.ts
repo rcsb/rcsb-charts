@@ -1,13 +1,13 @@
 import React from "react";
 import {ChartDataReaderInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
-import {ChartConfigInterface} from "./ChartConfigInterface";
+import {ChartConfigInterface} from "../RcsbChartComponent/ChartConfigInterface";
 
 export interface AbstractChartImplementationInterface {
     height: number;
     width: number;
     dataProvider: ChartDataReaderInterface;
-    chartConfig: ChartConfigInterface;
+    chartConfig?: ChartConfigInterface;
 }
 
-export abstract class AbstractChartImplementation extends React.Component<AbstractChartImplementationInterface, any>{}
+export abstract class AbstractChartImplementation extends React.Component<AbstractChartImplementationInterface>{}
 export type AbstractChartImplementationType = typeof AbstractChartImplementation;

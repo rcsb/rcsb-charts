@@ -26,13 +26,13 @@ export class BarChartDataProvider implements ChartDataProviderInterface{
             .slice(0,config?.mostPopulatedGroups ?? mergedValues.size)
             .map(e=>e[0]));
 
-        const sort = config.sort ?? ((b: ChartDataInterface, a: ChartDataInterface) => {
+        const sort = config?.sort ?? ((b: ChartDataInterface, a: ChartDataInterface) => {
             if(mergedValues.get(b.x) != mergedValues.get(a.x))
-                return mergedValues.get(b.x)-mergedValues.get(a.x);
-            else if(mergedValues.get(b.x) > 0)
+                return (mergedValues.get(b.x) ?? 0)-(mergedValues.get(a.x) ?? 0);
+            else if( (mergedValues.get(b.x) ?? 0) > 0)
                 return a.x.toString().localeCompare(b.x.toString())
             else
-                return subValues.get(b.x)-subValues.get(a.x);
+                return (subValues.get(b.x) ?? 0)-(subValues.get(a.x) ?? 0);
         });
         const barOut: ChartDataInterface[] = data.sort((a, b)=>sort(a,b)).filter(d=>(allowedCategories.has(d.x)));
         this.stringTicks = barOut.map(d=>d.x as string);

@@ -2,7 +2,7 @@ import {ChartConfigInterface, ChartObjectInterface} from "../RcsbChartComponent/
 
 export interface ChartDataInterface {
     x:string|number;
-    y:{value:number;color?:string;}[];
+    y:{value:number; color?:string; id?:any;}[];
     label?:string;
     isLabel?:boolean;
     id?:string;
@@ -13,6 +13,7 @@ export interface ChartDataValuesInterface extends Omit<ChartDataInterface, "y">{
     values:number[];
     index:number;
     color?:string;
+    id?:any;
 }
 
 export interface ChartDataProviderInterface extends ChartDataReaderInterface {

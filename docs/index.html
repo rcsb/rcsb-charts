@@ -32,8 +32,16 @@ Currently, ony a Victory based implementation is available.</p>
 <a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
   <h3>Testing</h3>
 </a>
+<p>Different testing example are available in the <code>src/RcsbChartExamples</code> folder</p>
 <ul>
-<li>TODO</li>
+<li><code>npm install</code></li>
+<li><code>npm run devServer</code></li>
+</ul>
+<p>Go to:</p>
+<ul>
+<li><code>http://localhost:9000/SingleBars.html</code></li>
+<li><code>http://localhost:9000/SingleHistogram.html</code></li>
+<li><code>http://localhost:9000/StackHistogram.html</code></li>
 </ul>
 
 <a href="#javascript-examples" id="javascript-examples" style="color: inherit; text-decoration: none;">
@@ -51,9 +59,11 @@ Currently, ony a Victory based implementation is available.</p>
 <a href="#interfaces" id="interfaces" style="color: inherit; text-decoration: none;">
   <h3>Interfaces</h3>
 </a>
-<pre><code class="language-typescript"><span class="hl-0">interface</span><span class="hl-1"> </span><span class="hl-2">AbstractChartInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-3">data</span><span class="hl-1">: </span><span class="hl-2">ChartObjectInterface</span><span class="hl-1">[][];</span><br/><span class="hl-1">    </span><span class="hl-4">subscribe</span><span class="hl-1">? (</span><span class="hl-4">f</span><span class="hl-1">:(</span><span class="hl-3">x</span><span class="hl-1">:</span><span class="hl-2">ObservedDataInterface</span><span class="hl-1">)</span><span class="hl-0">=&gt;</span><span class="hl-2">void</span><span class="hl-1">, </span><span class="hl-3">attr</span><span class="hl-1">?:</span><span class="hl-2">string</span><span class="hl-1">): </span><span class="hl-2">Subscription</span><br/><span class="hl-1">    </span><span class="hl-3">chartConfig</span><span class="hl-1">?:</span><span class="hl-2">ChartConfigInterface</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">attributeName</span><span class="hl-1">:</span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">chartComponentImplementation</span><span class="hl-1">: </span><span class="hl-2">AbstractChartImplementationType</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+<pre><code class="language-typescript"><span class="hl-0">interface</span><span class="hl-1"> </span><span class="hl-2">ChartInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-3">data</span><span class="hl-1">: </span><span class="hl-2">ChartObjectInterface</span><span class="hl-1">[][];</span><br/><span class="hl-1">    </span><span class="hl-3">dataProvider</span><span class="hl-1">: </span><span class="hl-2">ChartDataProviderInterface</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">chartComponentImplementation</span><span class="hl-1">: </span><span class="hl-2">AbstractChartImplementationType</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">chartConfig</span><span class="hl-1">?:</span><span class="hl-2">ChartConfigInterface</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
 </code></pre>
-<pre><code class="language-typescript"><span class="hl-5">export</span><span class="hl-1"> </span><span class="hl-0">interface</span><span class="hl-1"> </span><span class="hl-2">ChartObjectInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-3">label</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">|</span><span class="hl-2">number</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">population</span><span class="hl-1">: </span><span class="hl-2">number</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">objectConfig</span><span class="hl-1">?:{</span><br/><span class="hl-1">        </span><span class="hl-3">objectId</span><span class="hl-1">?:</span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">        </span><span class="hl-3">color</span><span class="hl-1">?:</span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    };</span><br/><span class="hl-1">}</span>
+<pre><code class="language-typescript"><span class="hl-0">interface</span><span class="hl-1"> </span><span class="hl-2">ChartObjectInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-3">label</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">|</span><span class="hl-2">number</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">population</span><span class="hl-1">: </span><span class="hl-2">number</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">objectConfig</span><span class="hl-1">?:{</span><br/><span class="hl-1">        </span><span class="hl-3">objectId</span><span class="hl-1">?:</span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">        </span><span class="hl-3">color</span><span class="hl-1">?:</span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    };</span><br/><span class="hl-1">}</span>
+</code></pre>
+<pre><code class="language-typescript"><span class="hl-0">interface</span><span class="hl-1"> </span><span class="hl-2">ChartDataProviderInterface</span><span class="hl-1"> </span><span class="hl-0">extends</span><span class="hl-1"> </span><span class="hl-2">ChartDataReaderInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">setData</span><span class="hl-1">(</span><span class="hl-3">data</span><span class="hl-1">: </span><span class="hl-2">ChartObjectInterface</span><span class="hl-1">[][],  </span><span class="hl-3">config</span><span class="hl-1">: </span><span class="hl-2">ChartConfigInterface</span><span class="hl-1">): </span><span class="hl-2">void</span><span class="hl-1">;</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-0">interface</span><span class="hl-1"> </span><span class="hl-2">ChartDataReaderInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">getChartData</span><span class="hl-1">(): {</span><span class="hl-3">data</span><span class="hl-1">: </span><span class="hl-2">ChartDataInterface</span><span class="hl-1">[]; </span><span class="hl-3">excludedData</span><span class="hl-1">?:</span><span class="hl-2">ChartDataInterface</span><span class="hl-1">[]}</span><br/><span class="hl-1">    </span><span class="hl-4">xDomain</span><span class="hl-1">(): [</span><span class="hl-2">number</span><span class="hl-1">, </span><span class="hl-2">number</span><span class="hl-1">] | </span><span class="hl-2">undefined</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-4">tickValues</span><span class="hl-1">(): </span><span class="hl-2">string</span><span class="hl-1">[] | </span><span class="hl-2">number</span><span class="hl-1">[] | </span><span class="hl-2">undefined</span><br/><span class="hl-1">}</span>
 </code></pre>
 
 <a href="#react-classes" id="react-classes" style="color: inherit; text-decoration: none;">
@@ -61,8 +71,7 @@ Currently, ony a Victory based implementation is available.</p>
 </a>
 <ul>
 <li>Abstraction layer<ul>
-<li><code>BarChartComponent</code> </li>
-<li><code>HistogramChartComponent</code></li>
+<li><code>ChartComponent&lt;ChartInterface&gt;</code></li>
 </ul>
 </li>
 <li>Implementation layer<ul>
@@ -81,7 +90,7 @@ Currently, ony a Victory based implementation is available.</p>
   <h2>License</h2>
 </a>
 <p>The MIT License</p>
-<pre><code><span class="hl-4">Copyright</span><span class="hl-1"> (</span><span class="hl-3">c</span><span class="hl-1">) </span><span class="hl-6">2019</span><span class="hl-1"> - </span><span class="hl-3">now</span><span class="hl-1">, </span><span class="hl-7">RCSB</span><span class="hl-1"> </span><span class="hl-7">PDB</span><span class="hl-1"> </span><span class="hl-3">and</span><span class="hl-1"> </span><span class="hl-3">contributors</span>
+<pre><code><span class="hl-4">Copyright</span><span class="hl-1"> (</span><span class="hl-3">c</span><span class="hl-1">) </span><span class="hl-5">2019</span><span class="hl-1"> - </span><span class="hl-3">now</span><span class="hl-1">, </span><span class="hl-6">RCSB</span><span class="hl-1"> </span><span class="hl-6">PDB</span><span class="hl-1"> </span><span class="hl-3">and</span><span class="hl-1"> </span><span class="hl-3">contributors</span>
 </code></pre>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal

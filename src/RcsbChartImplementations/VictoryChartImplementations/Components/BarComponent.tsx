@@ -38,9 +38,10 @@ export class BarComponent extends React.Component <BarComponentInterface,{fillCo
                 cursor: "pointer",
                 fill: this.state.fillColor
             }
+        return {};
     }
 
-    x(): number {
+    x(): number|undefined {
         if(this.props.x && this.props.x0 && this.props.datum.y > 0 && (this.props.x-this.props.x0) < this.MIN_THR)
             return this.props.x0+this.MIN_THR
         return this.props.x;
