@@ -10,7 +10,7 @@ Currently, ony a Victory based implementation is available.
 `<script src="https://cdn.jsdelivr.net/npm/@rcsb/rcsb-charts/build/dist/charts.js" type="text/javascript"></script>`
 
 ### Testing 
-Different testing example are available in the `src/RcsbChartExamples` folder
+Different testing examples are available in the `src/RcsbChartExamples` folder
 - `npm install`
 - `npm run devServer`
 
