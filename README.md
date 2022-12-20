@@ -61,6 +61,15 @@ interface ChartDataReaderInterface {
 }
 ```
 
+```typescript
+interface AbstractChartImplementationInterface {
+    height: number;
+    width: number;
+    dataProvider: ChartDataReaderInterface;
+    chartConfig?: ChartConfigInterface;
+}
+```
+
 ### React Classes
 - Abstraction layer
   - `ChartComponent<ChartInterface>` 
