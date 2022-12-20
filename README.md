@@ -25,7 +25,8 @@ Go to:
 - TODO
 
 ### Library Documentation
-TODO
+TypeScript classes documentation can be found [here](https://rcsb.github.io/rcsb-charts/)
+
 
 ### Interfaces 
 ```typescript
