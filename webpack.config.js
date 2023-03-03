@@ -46,6 +46,7 @@ const webChart = {
         'charts':'./build/src/charts.js'
     },
     output: {
+        publicPath: '',
         filename: '[name].js',
         library: {
             type:'commonjs'
