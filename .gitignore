@@ -6,3 +6,4 @@ build
 # intellij
 .idea
 *.iml
+/lib/

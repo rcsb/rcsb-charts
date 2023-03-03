@@ -1,27 +1,25 @@
 {
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "./lib",
-    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "./build/src",
     "noImplicitAny": true,
     "alwaysStrict": true,
     "noImplicitThis": true,
     "target": "es6",
-    "module": "esnext",
+    "module": "commonjs",
     "jsx": "react",
     "lib": [ "dom", "es2020" ],
     "allowJs": true,
     "sourceMap": false,
-    // "noUnusedLocals": true,
+    //"noUnusedLocals": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "declaration": true,
-    "declarationDir": "./lib",
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": [ "src" ],
+  "include": [ "src/*", "src/**/*", "src/**/**/*", "src/**/**/**/*" ],
   "exclude": [
-    "node_modules", "src/charts.ts"
+    "node_modules"
   ]
 }

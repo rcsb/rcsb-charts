@@ -46,11 +46,9 @@ const webChart = {
         'charts':'./build/src/charts.js'
     },
     output: {
-        publicPath: '',
         filename: '[name].js',
-        library: {
-            type:'commonjs'
-        },
+        library: 'RcsbCharts',
+        libraryTarget: 'umd',
         umdNamedDefine: true,
         path: path.resolve(__dirname, 'build/dist')
     }

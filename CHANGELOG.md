@@ -2,6 +2,12 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.0.3] - 2023-03-03
+### Configuration
+- module esnext
+- No webpack bundling
+- Classes exposed as a library
+
 ## [0.0.2] - 2023-03-03
 ### Configuration
 - WebPack `publicPath`
