@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const commonConfig = {
-    mode: "production",
+    mode: "development",
     module: {
         rules: [
             {

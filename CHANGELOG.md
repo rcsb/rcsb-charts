@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.0.4] - 2023-05-17
+### Bug fix
+- Empty data bug fixed
+
 ## [0.0.3] - 2023-03-03
 ### Configuration
 - module esnext

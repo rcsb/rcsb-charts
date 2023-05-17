@@ -13,7 +13,7 @@ export class VictoryBarChartComponent extends AbstractChartImplementation {
     render():JSX.Element {
         const {data}: {data: ChartDataInterface[]; excludedData?:ChartDataInterface[];} = this.props.dataProvider.getChartData();
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
-        return (<VictoryChart
+        return (data.length == 0 ? <></> : <VictoryChart
             domainPadding={{ x: ChartTools.getConfig<number>("xDomainPadding",displayConfig) }}
             padding={{left:ChartTools.getConfig<number>("paddingLeft", displayConfig), top:ChartTools.getConfig<number>("paddingTopLarge",displayConfig), right:ChartTools.getConfig<number>("paddingRight",displayConfig)}}
             height={this.props.height}

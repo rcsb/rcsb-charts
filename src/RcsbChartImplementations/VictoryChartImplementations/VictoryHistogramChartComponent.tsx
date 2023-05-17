@@ -1,13 +1,12 @@
 import {AbstractChartImplementation} from "../AbstractChartImplementation";
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {AxisFactory} from "./Components/AxisFactory";
-import {Bar, VictoryBar, VictoryChart, VictoryStack, VictoryTooltip} from "victory";
+import {Bar, VictoryBar, VictoryChart, VictoryStack} from "victory";
 import * as React from "react";
 import {BarComponent} from "./Components/BarComponent";
 import {TooltipFactory} from "./Components/TooltipFactory";
 import {ChartDataInterface, ChartDataValuesInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
-import {TooltipComponent} from "./Components/TooltipComponent";
 
 export class VictoryHistogramChartComponent extends AbstractChartImplementation {
 
@@ -17,7 +16,7 @@ export class VictoryHistogramChartComponent extends AbstractChartImplementation 
         const width: number = ChartTools.getConfig<number>("paddingLeft", displayConfig) + ChartTools.getConfig<number>("constWidth", displayConfig) + ChartTools.getConfig<number>("paddingRight", displayConfig);
         const dom = this.props.dataProvider.xDomain();
         const nBins: number = dom ? (dom[1]-dom[0])/(this.props.chartConfig?.histogramBinIncrement ?? 1) : data.length;
-        return (<VictoryChart
+        return (data.length == 0 ? <></> : <VictoryChart
             padding={{left:ChartTools.getConfig<number>("paddingLeft", displayConfig), bottom:ChartTools.getConfig<number>("paddingTopLarge", displayConfig), top: ChartTools.getConfig<number>("paddingTop", displayConfig), right:ChartTools.getConfig<number>("paddingRight", displayConfig)}}
             height={ChartTools.getConfig<number>("constHeight", displayConfig)}
             width={width}
@@ -33,7 +32,7 @@ export class VictoryHistogramChartComponent extends AbstractChartImplementation 
 
 //TODO <VictoryStack animate={true}> BarComponent props fails in capturing updated data
 function stack(data: ChartDataInterface[], nBins: number,chartConfig?: ChartConfigInterface): JSX.Element{
-    return ( <VictoryStack>
+    return (<VictoryStack>
         {bar(
             data.map(d=>({
                 ...d,
@@ -51,7 +50,7 @@ function stack(data: ChartDataInterface[], nBins: number,chartConfig?: ChartConf
             chartConfig?.chartDisplayConfig
         )}
         {
-            data[0].y.length > 1 ?
+            data[0] && (data[0].y.length > 1) ?
                 Array(data[0].y.length-1).fill(undefined).map(
                     (e,n)=>bar(
                         data.map(d=>({
