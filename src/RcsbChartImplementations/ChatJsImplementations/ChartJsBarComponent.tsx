@@ -79,6 +79,11 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
 }
 
 function getChartJsData(data: ChartDataInterface[]){
+    if(!data || data.length == 0)
+        return {
+            labels: [],
+            datasets: []
+        };
     data = data.reverse();
     const N = data[0].y.length;
     return {

@@ -4,6 +4,10 @@
 
 ## [0.0.7] - 2023-05-24
 ### Bug fix
+- empty data chart.js bug fixed
+
+## [0.0.7] - 2023-05-24
+### Bug fix
 - moving chart.js to dependencies
 
 ## [0.0.6] - 2023-05-24

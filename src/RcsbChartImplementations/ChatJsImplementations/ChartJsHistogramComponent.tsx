@@ -73,6 +73,11 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
 }
 
 function getChartJsData(data: ChartDataInterface[]){
+    if(!data || data.length == 0)
+        return {
+            labels: [],
+            datasets: []
+        };
     const N = data[0].y.length;
     return {
         labels: data.map(d=>d.x.toString()),
