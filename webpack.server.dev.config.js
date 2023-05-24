@@ -39,7 +39,7 @@ const commonConfig = {
 };
 
 
-const examples = ['SingleHistogram', 'SingleBars', 'StackHistogram'];
+const examples = ['SingleHistogram', 'SingleBars', 'StackHistogram', 'ChartJsBars', 'ChartJsHistogram'];
 const entries = examples.reduce((prev,current)=>{prev[current]=`./src/RcsbChartExamples/${current}.tsx`;return prev;},{});
 
 const server = {

@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.0.5] - 2023-05-17
+### Improvement
+- Bar and Histogram component based on ChartJs [`ChartJsBarComponent`, `ChartJsHistogramComponent`]
+
 ## [0.0.4] - 2023-05-17
 ### Bug fix
 - Empty data bug fixed

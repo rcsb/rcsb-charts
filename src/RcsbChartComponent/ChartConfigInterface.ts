@@ -10,7 +10,7 @@ export interface ChartObjectInterface {
     };
 }
 
-export type BarClickCallbackType = (datum:ChartDataInterface, data:ChartDataInterface[], e:React.MouseEvent<any>)=>void;
+export type BarClickCallbackType = (datum:ChartDataInterface, data:ChartDataInterface[], e?:React.MouseEvent<any>)=>void;
 export interface ChartConfigInterface {
     mergeDomainMaxValue?:number;
     mostPopulatedGroups?: number;
