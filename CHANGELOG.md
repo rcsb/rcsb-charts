@@ -2,7 +2,15 @@
 
 [Semantic Versioning](https://semver.org/)
 
-## [0.0.5] - 2023-05-17
+## [0.0.7] - 2023-05-24
+### Bug fix
+- moving chart.js to dependencies
+
+## [0.0.6] - 2023-05-24
+### Bug fix
+- Removed console output
+
+## [0.0.5] - 2023-05-24
 ### Improvement
 - Bar and Histogram component based on ChartJs [`ChartJsBarComponent`, `ChartJsHistogramComponent`]
 
