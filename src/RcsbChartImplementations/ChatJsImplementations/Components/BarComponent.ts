@@ -7,8 +7,6 @@ export function chartJsBarClick(dataContainer: DataContainerReader<ChartDataInte
     if(! barClickCallback)
         return undefined;
     return (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
-        console.log(event);
-        console.log(elements);
         const element = elements[0];
         if(!element)
             return;
