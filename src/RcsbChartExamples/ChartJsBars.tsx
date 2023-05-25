@@ -4,6 +4,7 @@ import {ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
 import {BarChartDataProvider} from "../RcsbChartDataProvider/BarChartDataProvider";
 import {ChartJsBarComponent} from "../RcsbChartImplementations/ChatJsImplementations/ChartJsBarComponent";
+import {largeData} from "./Data/LargeData";
 
 const node: HTMLElement|null = document.getElementById("chart-element");
 if(node==null)
@@ -87,12 +88,15 @@ const evenMoreData: ChartObjectInterface[] = [{
 
 const root = createRoot(node);
 root.render(<ChartComponent
-    data={[data, moreData, evenMoreData]}
+    data={largeData}
     chartComponentImplementation={ChartJsBarComponent}
     dataProvider={new BarChartDataProvider()}
     chartConfig={{
-        mostPopulatedGroups: 3,
-        tooltipText: (a)=> a.id,
-        barClickCallback: (e, f) => console.log(e)
+        mostPopulatedGroups: 20,
+        tooltipText: (a) => a.id,
+        barClickCallback: (e, f) => console.log(e),
+        chartDisplayConfig: {
+            constWidth: 800
+        }
     }}
 />)

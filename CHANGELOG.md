@@ -2,7 +2,11 @@
 
 [Semantic Versioning](https://semver.org/)
 
-## [0.0.7] - 2023-05-24
+## [0.0.9] - 2023-05-25
+### Improvement
+- ChartJs performance improved
+
+## [0.0.8] - 2023-05-24
 ### Bug fix
 - empty data chart.js bug fixed
 

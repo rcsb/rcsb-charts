@@ -8,12 +8,13 @@ import {DataContainer} from "../../Utils/DataContainer";
 import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
 
+type ChartDataType = {x: string;y :number;};
 export class ChartJsHistogramComponent extends AbstractChartImplementation {
 
     private readonly elementId: string = uniqid("canvas_");
     private readonly dataContainer = new DataContainer<ChartDataInterface[]>();
     private rootElement: HTMLCanvasElement;
-    private chart: Chart<"bar",number[],string>;
+    private chart: Chart<"bar",ChartDataType[],string>;
 
     render():JSX.Element {
         return (
@@ -31,13 +32,18 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
         if(!ctx)
             return;
 
-        this.chart = new Chart<"bar",number[],string>(ctx,{
+        console.log(getChartJsData(data));
+        this.chart = new Chart<"bar",ChartDataType[],string>(ctx,{
             type: 'bar',
             data: getChartJsData(data),
             options:{
                 responsive: true,
                 maintainAspectRatio: false,
                 indexAxis: 'x',
+                parsing: {
+                    xAxisKey: 'x',
+                    yAxisKey: 'y',
+                },
                 scales: {
                     x: {
                         stacked: true
@@ -50,7 +56,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                     legend: {
                         display: false
                     },
-                    tooltip: chartJsTooltip(this.dataContainer, this.props.chartConfig?.tooltipText)
+                    tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },
                 onClick: chartJsBarClick(this.dataContainer)
             }
@@ -60,30 +66,27 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     shouldComponentUpdate(nextProps: Readonly<AbstractChartImplementationInterface>, nextState: Readonly<any>, nextContext: any): boolean {
         const {data}: { data: ChartDataInterface[]; excludedData?: ChartDataInterface[]; } = nextProps.dataProvider.getChartData();
         this.dataContainer.set(data);
+        this.chart.data = getChartJsData(data);
+        this.chart.update();
         if(this.rootElement.style.width != nextProps.width.toString())
             this.rootElement.style.width = nextProps.width.toString();
         if(this.rootElement.style.height != nextProps.height.toString()) {
             this.rootElement.style.height = nextProps.height.toString()+"px";
         }
-        this.chart.data = getChartJsData(data);
-        this.chart.update();
         return false;
     }
 
 }
-
 function getChartJsData(data: ChartDataInterface[]){
     if(!data || data.length == 0)
         return {
-            labels: [],
             datasets: []
         };
     const N = data[0].y.length;
     return {
-        labels: data.map(d=>d.x.toString()),
         datasets: Array(N).fill(undefined).map((v,n)=>({
-            data: data.map(d=>d.y[n].value),
-            backgroundColor: data.map(d=>d.y[n].color),
+            data: data.filter(d=>d.y[n].value > 0).map(d=>({x:d.x.toString(), y:d.y[n].value, id:d.y[n].id})),
+            backgroundColor: data.filter(d=>d.y[n].value > 0).map(d=>d.y[n].color ?? "#999"),
         }))
     };
 }

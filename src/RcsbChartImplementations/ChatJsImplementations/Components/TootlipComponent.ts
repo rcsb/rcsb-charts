@@ -1,19 +1,20 @@
-import {ChartDataInterface, ChartDataValuesInterface} from "../../../RcsbChartDataProvider/ChartDataProviderInterface";
-import {DataContainerReader} from "../../../Utils/DataContainer";
+import {ChartDataValuesInterface} from "../../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {TooltipItem} from "chart.js/auto";
 
-export function chartJsTooltip(dataContainer: DataContainerReader<ChartDataInterface[]>, tooltipText?:(a: ChartDataValuesInterface) => string|undefined) {
+type RawType = {x:string|number; y:number; id:any;};
+export function chartJsTooltip(tooltipText?:(a: ChartDataValuesInterface) => string|undefined) {
     if(!tooltipText)
         return undefined;
     return {
         callbacks: {
             afterLabel: (tooltipItem: TooltipItem<any>) =>{
+                const raw: RawType = tooltipItem.raw as RawType;
                 return tooltipText?.({
-                    y: tooltipItem.dataset.data[tooltipItem.datasetIndex],
+                    y: raw.y,
                     values: tooltipItem.dataset.data,
                     index: tooltipItem.datasetIndex,
-                    x: tooltipItem.label,
-                    id: dataContainer.get()?.[tooltipItem.dataIndex].y[tooltipItem.datasetIndex].id
+                    x: raw.x,
+                    id: raw.id
                 })
             }
         }
