@@ -2,6 +2,13 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.1.0] - 2023-05-26
+### Breaking change
+- `ChartDataInterface` type replaced by `ChartDataColumnInterface`
+  - This interface describes a column content
+- `ChartDataValueInterface` type replaces `ChartDataValuesInterface`
+  - This interface describe a column cell (stacked region)
+
 ## [0.0.9] - 2023-05-25
 ### Improvement
 - ChartJs performance improved

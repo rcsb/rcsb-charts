@@ -1,20 +1,20 @@
-import {ChartDataProviderInterface, ChartDataInterface} from "./ChartDataProviderInterface";
+import {ChartDataProviderInterface, ChartDataColumnInterface} from "./ChartDataProviderInterface";
 import {ChartConfigInterface, ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartTools} from "./ChartTools";
 
 export class HistogramChartDataProvider implements ChartDataProviderInterface{
 
     private config: ChartConfigInterface;
-    private data: ChartDataInterface[];
+    private data: ChartDataColumnInterface[];
 
     public setData(chartData: ChartObjectInterface[][], config?: ChartConfigInterface):void {
         this.config = config ?? {};
-        const data: ChartDataInterface[] = ChartTools.normalizeData(ChartTools.labelsAsNumber(chartData));
-        const barData: ChartDataInterface[] = this.transformData(data)
+        const data: ChartDataColumnInterface[] = ChartTools.normalizeData(ChartTools.labelsAsNumber(chartData));
+        const barData: ChartDataColumnInterface[] = this.transformData(data)
         this.data = barData.sort((r,s)=>((r.x as number)-(s.x as number)));
     }
 
-    public getChartData(): { data: ChartDataInterface[]; } {
+    public getChartData(): { data: ChartDataColumnInterface[]; } {
         return {data: this.data};
     }
 
@@ -40,14 +40,14 @@ export class HistogramChartDataProvider implements ChartDataProviderInterface{
         return undefined;
     }
 
-    private transformData(data: ChartDataInterface[]): ChartDataInterface[]{
+    private transformData(data: ChartDataColumnInterface[]): ChartDataColumnInterface[]{
         if(!data)
             return [];
-        let out: ChartDataInterface[] = data;
+        let out: ChartDataColumnInterface[] = data;
         if(this.config?.mergeDomainMaxValue) {
             out = ChartTools.mergeDomainMaxValue(data, this.config.mergeDomainMaxValue);
         }
-        return out.map(d=>({x:(d.x as number),y:d.y, isLabel:true}));
+        return out.map(d=>({x:(d.x as number),y:d.y}));
     }
 
 }

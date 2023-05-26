@@ -6,7 +6,7 @@ import {
 import {ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
 import {HistogramChartDataProvider} from "../RcsbChartDataProvider/HistogramChartDataProvider";
-import {ChartDataValuesInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataValueInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
 
 const node: HTMLElement|null = document.getElementById("chart-element");
 if(node==null)
@@ -59,9 +59,10 @@ root.render(<ChartComponent
     dataProvider={new HistogramChartDataProvider()}
     chartConfig={{
         histogramBinIncrement:1,
-        tooltipText: (a: ChartDataValuesInterface)=>{
+        tooltipText: (a: ChartDataValueInterface<string>)=>{
             if(typeof a.id == "string")
-                return `value: ${a.y} color: ${a.color} id: ${a.id}`;
-        }
+                return `value: ${a.y} x: ${a.x} id: ${a.id}`;
+        },
+        barClickCallback: (a) => console.log(a)
     }}
 />)

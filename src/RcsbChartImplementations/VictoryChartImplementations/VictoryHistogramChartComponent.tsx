@@ -5,13 +5,14 @@ import {Bar, VictoryBar, VictoryChart, VictoryStack} from "victory";
 import * as React from "react";
 import {BarComponent} from "./Components/BarComponent";
 import {TooltipFactory} from "./Components/TooltipFactory";
-import {ChartDataInterface, ChartDataValuesInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataColumnInterface, ChartDataValueInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
+import {VictoryChartDataInterface} from "./VictoryChartDataInterface";
 
 export class VictoryHistogramChartComponent extends AbstractChartImplementation {
 
     render() {
-        const {data}: { data: ChartDataInterface[];} = this.props.dataProvider.getChartData();
+        const {data}: { data: ChartDataColumnInterface[];} = this.props.dataProvider.getChartData();
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
         const width: number = ChartTools.getConfig<number>("paddingLeft", displayConfig) + ChartTools.getConfig<number>("constWidth", displayConfig) + ChartTools.getConfig<number>("paddingRight", displayConfig);
         const dom = this.props.dataProvider.xDomain();
@@ -31,7 +32,7 @@ export class VictoryHistogramChartComponent extends AbstractChartImplementation 
 }
 
 //TODO <VictoryStack animate={true}> BarComponent props fails in capturing updated data
-function stack(data: ChartDataInterface[], nBins: number,chartConfig?: ChartConfigInterface): JSX.Element{
+function stack(data: ChartDataColumnInterface[], nBins: number, chartConfig?: ChartConfigInterface): JSX.Element{
     return (<VictoryStack>
         {bar(
             data.map(d=>({
@@ -39,7 +40,7 @@ function stack(data: ChartDataInterface[], nBins: number,chartConfig?: ChartConf
                 y:d.y[0].value,
                 color:d.y[0].color,
                 id:d.y[0].id,
-                values:d.y.map(v=>v.value),
+                values:d.y,
                 index:0
             })),
             0,
@@ -58,7 +59,7 @@ function stack(data: ChartDataInterface[], nBins: number,chartConfig?: ChartConf
                             y:d.y[n+1].value,
                             color:d.y[n+1].color,
                             id:d.y[n+1].id,
-                            values:d.y.map(v=>v.value),
+                            values:d.y,
                             index:n+1
                         })),
                         n+1,
@@ -75,7 +76,7 @@ function stack(data: ChartDataInterface[], nBins: number,chartConfig?: ChartConf
     </VictoryStack>);
 }
 
-function bar(data: ChartDataValuesInterface[], index:number, nBins: number, color: string, barComp?: JSX.Element, labelComponent?: JSX.Element, chartDisplayConfig?:Partial<ChartDisplayConfigInterface>): JSX.Element {
+function bar(data: VictoryChartDataInterface[], index:number, nBins: number, color: string, barComp?: JSX.Element, labelComponent?: JSX.Element, chartDisplayConfig?:Partial<ChartDisplayConfigInterface>): JSX.Element {
     return data.length > 0 ? (<VictoryBar
         key={"victory_bar_"+index}
         barWidth={(Math.ceil(ChartTools.getConfig<number>("constWidth", chartDisplayConfig)/nBins)-3)}

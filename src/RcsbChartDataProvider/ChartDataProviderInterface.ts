@@ -1,19 +1,15 @@
 import {ChartConfigInterface, ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 
-export interface ChartDataInterface {
+export interface ChartDataColumnInterface<T=any> {
     x:string|number;
-    y:{value:number; color?:string; id?:any;}[];
-    label?:string;
-    isLabel?:boolean;
-    id?:string;
+    y:{value:number; color?:string; id?:T;}[];
 }
 
-export interface ChartDataValuesInterface extends Omit<ChartDataInterface, "y">{
-    y:number;
-    values:number[];
-    index:number;
-    color?:string;
-    id?:any;
+export interface ChartDataValueInterface<T=any> {
+    x:string|number;
+    y: number;
+    values: {value:number; color?:string; id?:T;}[];
+    id?: T;
 }
 
 export interface ChartDataProviderInterface extends ChartDataReaderInterface {
@@ -21,7 +17,7 @@ export interface ChartDataProviderInterface extends ChartDataReaderInterface {
 }
 
 export interface ChartDataReaderInterface {
-    getChartData(): {data: ChartDataInterface[]; excludedData?:ChartDataInterface[]}
+    getChartData(): {data: ChartDataColumnInterface[]; excludedData?:ChartDataColumnInterface[]}
     xDomain(): [number, number] | undefined;
     tickValues(): string[] | number[] | undefined
 }

@@ -1,16 +1,16 @@
 import {ChartConfigInterface, ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartTools} from "./ChartTools";
-import {ChartDataProviderInterface,ChartDataInterface} from "./ChartDataProviderInterface";
+import {ChartDataProviderInterface,ChartDataColumnInterface} from "./ChartDataProviderInterface";
 
 export class BarChartDataProvider implements ChartDataProviderInterface{
 
     private stringTicks: string[];
-    private excludedData: ChartDataInterface[];
-    private data: ChartDataInterface[];
+    private excludedData: ChartDataColumnInterface[];
+    private data: ChartDataColumnInterface[];
 
     public setData(chartData: ChartObjectInterface[][], config?: ChartConfigInterface):void {
-        const data: ChartDataInterface[] = ChartTools.normalizeData(ChartTools.labelsAsString(chartData));
-        const subData: ChartDataInterface[] = data.filter(d=>d.y[0].value==0) ?? [];
+        const data: ChartDataColumnInterface[] = ChartTools.normalizeData(ChartTools.labelsAsString(chartData));
+        const subData: ChartDataColumnInterface[] = data.filter(d=>d.y[0].value==0) ?? [];
 
         const mergedValues: Map<string|number, number> = new Map<string, number>();
         const subValues: Map<string|number, number> = new Map<string, number>();
@@ -26,7 +26,7 @@ export class BarChartDataProvider implements ChartDataProviderInterface{
             .slice(0,config?.mostPopulatedGroups ?? mergedValues.size)
             .map(e=>e[0]));
 
-        const sort = config?.sort ?? ((b: ChartDataInterface, a: ChartDataInterface) => {
+        const sort = config?.sort ?? ((b: ChartDataColumnInterface, a: ChartDataColumnInterface) => {
             if(mergedValues.get(b.x) != mergedValues.get(a.x))
                 return (mergedValues.get(b.x) ?? 0)-(mergedValues.get(a.x) ?? 0);
             else if( (mergedValues.get(b.x) ?? 0) > 0)
@@ -34,13 +34,13 @@ export class BarChartDataProvider implements ChartDataProviderInterface{
             else
                 return (subValues.get(b.x) ?? 0)-(subValues.get(a.x) ?? 0);
         });
-        const barOut: ChartDataInterface[] = data.sort((a, b)=>sort(a,b)).filter(d=>(allowedCategories.has(d.x)));
+        const barOut: ChartDataColumnInterface[] = data.sort((a, b)=>sort(a,b)).filter(d=>(allowedCategories.has(d.x)));
         this.stringTicks = barOut.map(d=>d.x as string);
         this.excludedData = data.filter(d=>(!allowedCategories.has(d.x)));
         this.data = barOut;
     }
 
-    public getChartData(): {data: ChartDataInterface[]; excludedData: ChartDataInterface[];}{
+    public getChartData(): {data: ChartDataColumnInterface[]; excludedData: ChartDataColumnInterface[];}{
         return {
             data: this.data,
             excludedData: this.excludedData

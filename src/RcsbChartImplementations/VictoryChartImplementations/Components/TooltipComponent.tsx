@@ -3,7 +3,8 @@ import {VictoryTooltipProps} from "victory-tooltip";
 import {ChartConfigInterface} from "../../../RcsbChartComponent/ChartConfigInterface";
 import {ChartTools} from "../../../RcsbChartDataProvider/ChartTools";
 import {VictoryTooltip} from "victory";
-import {ChartDataValuesInterface} from "../../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataValueInterface} from "../../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {VictoryChartDataInterface} from "../VictoryChartDataInterface";
 
 type TooltipPropsType = VictoryTooltipProps & {tooltipText?:ChartConfigInterface["tooltipText"]};
 export class TooltipComponent extends React.Component<TooltipPropsType> {
@@ -17,14 +18,14 @@ export class TooltipComponent extends React.Component<TooltipPropsType> {
             style={{
                 fontFamily: ChartTools.getConfig<string>("fontFamily", {}),
                 visibility: (e)=>{
-                    const d: ChartDataValuesInterface = (e.datum as ChartDataValuesInterface);
+                    const d: ChartDataValueInterface = (e.datum as ChartDataValueInterface);
                     if(typeof this.props.tooltipText?.(d) === "string")
                         return "visible";
                     return "hidden";
                 }
             }}
             flyoutStyle={{visibility: (e)=>{
-                    const d: ChartDataValuesInterface = (e.datum as ChartDataValuesInterface);
+                    const d: ChartDataValueInterface = (e.datum as ChartDataValueInterface);
                     if(typeof this.props.tooltipText?.(d) === "string")
                         return "visible";
                     return "hidden";
@@ -33,7 +34,9 @@ export class TooltipComponent extends React.Component<TooltipPropsType> {
     }
 
     private text():string|undefined {
-        const d: ChartDataValuesInterface = (this.props.datum as ChartDataValuesInterface);
+        const d: ChartDataValueInterface = {
+            ...(this.props.datum as VictoryChartDataInterface),
+        };
         if(typeof this.props.tooltipText?.(d) === "string") {
             return this.props.tooltipText(d) ?? ChartTools.digitGrouping(d.y);
         }

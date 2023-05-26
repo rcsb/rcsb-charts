@@ -5,6 +5,7 @@ import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
 import {BarChartDataProvider} from "../RcsbChartDataProvider/BarChartDataProvider";
 import {ChartJsBarComponent} from "../RcsbChartImplementations/ChatJsImplementations/ChartJsBarComponent";
 import {largeData} from "./Data/LargeData";
+import {ChartDataValueInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
 
 const node: HTMLElement|null = document.getElementById("chart-element");
 if(node==null)
@@ -93,7 +94,7 @@ root.render(<ChartComponent
     dataProvider={new BarChartDataProvider()}
     chartConfig={{
         mostPopulatedGroups: 20,
-        tooltipText: (a) => a.id,
+        tooltipText: (a: ChartDataValueInterface<string[]>) => a.id?.join(" - "),
         barClickCallback: (e, f) => console.log(e),
         chartDisplayConfig: {
             constWidth: 800

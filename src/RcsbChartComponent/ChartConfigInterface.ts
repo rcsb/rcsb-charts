@@ -1,16 +1,16 @@
-import {ChartDataInterface, ChartDataValuesInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataColumnInterface, ChartDataValueInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
 import * as React from "react";
 
-export interface ChartObjectInterface {
+export interface ChartObjectInterface<T=any> {
     label: string|number;
     population: number;
     objectConfig?:{
-        objectId?:any;
+        objectId?:T;
         color?:string;
     };
 }
 
-export type BarClickCallbackType = (datum:ChartDataInterface, data:ChartDataInterface[], e?:React.MouseEvent<any>)=>void;
+export type BarClickCallbackType = (datum:ChartDataValueInterface, data:ChartDataColumnInterface[], e?:React.MouseEvent<any>)=>void;
 export interface ChartConfigInterface {
     mergeDomainMaxValue?:number;
     mostPopulatedGroups?: number;
@@ -23,8 +23,8 @@ export interface ChartConfigInterface {
     };
     axisLabel?:string
     barClickCallback?:BarClickCallbackType;
-    sort?:(b: ChartDataInterface, a: ChartDataInterface) => number;
-    tooltipText?:(a: ChartDataValuesInterface) => string|undefined;
+    sort?:(b: ChartDataColumnInterface, a: ChartDataColumnInterface) => number;
+    tooltipText?:(a: ChartDataValueInterface) => string|undefined;
     chartDisplayConfig?: Partial<ChartDisplayConfigInterface>;
 }
 export interface ChartDisplayConfigInterface {

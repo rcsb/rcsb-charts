@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ChartTools} from "../RcsbChartDataProvider/ChartTools";
-import {ChartDataProviderInterface, ChartDataInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataProviderInterface, ChartDataColumnInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
 import {AbstractChartImplementationType} from "../RcsbChartImplementations/AbstractChartImplementation";
 import {ChartConfigInterface, ChartDisplayConfigInterface, ChartObjectInterface} from "./ChartConfigInterface";
 import {UiButton} from "./Components/UiButton";
@@ -27,7 +27,7 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
     render():JSX.Element {
         this.props.dataProvider.setData(this.props.data, this.state.chartConfig);
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.state.chartConfig?.chartDisplayConfig ?? {};
-        const {data,excludedData}: {data: ChartDataInterface[]; excludedData?:ChartDataInterface[];} = this.props.dataProvider.getChartData();
+        const {data,excludedData}: {data: ChartDataColumnInterface[]; excludedData?:ChartDataColumnInterface[];} = this.props.dataProvider.getChartData();
         const width: number = ChartTools.getConfig<number>("paddingLeft", displayConfig) + ChartTools.getConfig<number>("constWidth", displayConfig) + ChartTools.getConfig<number>("paddingRight", displayConfig);
         const height: number = ChartTools.getConfig<number>("paddingTopLarge", displayConfig) + data.length*ChartTools.getConfig<number>("xIncrement", displayConfig);
         const ChartComponent: AbstractChartImplementationType = this.props.chartComponentImplementation;

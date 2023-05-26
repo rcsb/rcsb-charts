@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {AbstractChartImplementation, AbstractChartImplementationInterface} from "../AbstractChartImplementation";
-import {ChartDataInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import uniqid from "uniqid";
 import Chart from 'chart.js/auto';
 import {DataContainer} from "../../Utils/DataContainer";
@@ -12,7 +12,7 @@ type ChartDataType = {x: string;y :number;};
 export class ChartJsHistogramComponent extends AbstractChartImplementation {
 
     private readonly elementId: string = uniqid("canvas_");
-    private readonly dataContainer = new DataContainer<ChartDataInterface[]>();
+    private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
     private rootElement: HTMLCanvasElement;
     private chart: Chart<"bar",ChartDataType[],string>;
 
@@ -25,14 +25,13 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     }
 
     componentDidMount() {
-        const {data}: { data: ChartDataInterface[]; excludedData?: ChartDataInterface[]; } = this.props.dataProvider.getChartData();
+        const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
         this.rootElement = document.getElementById(this.elementId) as HTMLCanvasElement;
         const ctx: CanvasRenderingContext2D | null | undefined = this.rootElement.getElementsByTagName("canvas").item(0)?.getContext('2d');
         if(!ctx)
             return;
 
-        console.log(getChartJsData(data));
         this.chart = new Chart<"bar",ChartDataType[],string>(ctx,{
             type: 'bar',
             data: getChartJsData(data),
@@ -64,7 +63,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     }
 
     shouldComponentUpdate(nextProps: Readonly<AbstractChartImplementationInterface>, nextState: Readonly<any>, nextContext: any): boolean {
-        const {data}: { data: ChartDataInterface[]; excludedData?: ChartDataInterface[]; } = nextProps.dataProvider.getChartData();
+        const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = nextProps.dataProvider.getChartData();
         this.dataContainer.set(data);
         this.chart.data = getChartJsData(data);
         this.chart.update();
@@ -77,7 +76,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     }
 
 }
-function getChartJsData(data: ChartDataInterface[]){
+function getChartJsData(data: ChartDataColumnInterface[]){
     if(!data || data.length == 0)
         return {
             datasets: []

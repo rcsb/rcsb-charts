@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {AbstractChartImplementation, AbstractChartImplementationInterface} from "../AbstractChartImplementation";
-import {ChartDataInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 import uniqid from "uniqid";
 import Chart, {Scale} from 'chart.js/auto';
@@ -14,7 +14,7 @@ type ChartDataType = {x: string;y :number;};
 export class ChartJsBarComponent extends AbstractChartImplementation {
 
     private readonly elementId: string = uniqid("canvas_");
-    private readonly dataContainer = new DataContainer<ChartDataInterface[]>();
+    private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
     private rootElement: HTMLCanvasElement;
     private chart: Chart<"bar",ChartDataType[],string>;
 
@@ -27,7 +27,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
     }
 
     componentDidMount() {
-        const {data}: { data: ChartDataInterface[]; excludedData?: ChartDataInterface[]; } = this.props.dataProvider.getChartData();
+        const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
         this.rootElement = document.getElementById(this.elementId) as HTMLCanvasElement;
@@ -69,7 +69,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
     }
 
     shouldComponentUpdate(nextProps: Readonly<AbstractChartImplementationInterface>, nextState: Readonly<any>, nextContext: any): boolean {
-        const {data}: { data: ChartDataInterface[]; excludedData?: ChartDataInterface[]; } = nextProps.dataProvider.getChartData();
+        const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = nextProps.dataProvider.getChartData();
         this.dataContainer.set(data);
         this.chart.data = getChartJsData(data);
         this.chart.update();
@@ -83,7 +83,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
 
 }
 
-function getChartJsData(data: ChartDataInterface[]){
+function getChartJsData(data: ChartDataColumnInterface[]){
     if(!data || data.length == 0)
         return {
             datasets: []

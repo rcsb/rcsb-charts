@@ -2,7 +2,7 @@ import {
     ChartDisplayConfigInterface,
     ChartObjectInterface
 } from "../RcsbChartComponent/ChartConfigInterface";
-import {ChartDataInterface} from "./ChartDataProviderInterface";
+import {ChartDataColumnInterface} from "./ChartDataProviderInterface";
 
 export class ChartTools {
 
@@ -22,8 +22,8 @@ export class ChartTools {
         return ((chartDisplayConfig && (typeof chartDisplayConfig[key] === "string" || typeof chartDisplayConfig[key] === "number")) ? chartDisplayConfig[key] : this[key]) as unknown as T;
     }
 
-    public static mergeDomainMaxValue(data: ChartDataInterface[], maxValue: number): ChartDataInterface[] {
-        const out: ChartDataInterface[] =  data.filter(d => parseFloat(d.x as string) < maxValue).map(d => ({
+    public static mergeDomainMaxValue(data: ChartDataColumnInterface[], maxValue: number): ChartDataColumnInterface[] {
+        const out: ChartDataColumnInterface[] =  data.filter(d => parseFloat(d.x as string) < maxValue).map(d => ({
             ...d,
             x: parseFloat(d.x as string),
             y: d.y
@@ -38,7 +38,7 @@ export class ChartTools {
             }, []);
             if(others.length > 0 && others.reduce((prev,curr)=>(prev+curr),0) > 0)
                 out.push({
-                    x:maxValue,
+                    x: maxValue,
                     y: others.map((v,n)=>({value:v, color:overflow[0].y[n].color}))
                 });
         }
@@ -59,13 +59,12 @@ export class ChartTools {
         })));
     }
 
-    public static normalizeData(chartData: ChartObjectInterface[][]): ChartDataInterface[]{
-        const dataMap: Map<string|number,ChartDataInterface> = new Map<string|number,ChartDataInterface>();
+    public static normalizeData(chartData: ChartObjectInterface[][]): ChartDataColumnInterface[]{
+        const dataMap: Map<string|number,ChartDataColumnInterface> = new Map<string|number,ChartDataColumnInterface>();
         chartData.flat().forEach(d=>{
             dataMap.set(d.label,{
                 x:d.label,
-                y:[],
-                isLabel:true
+                y:[]
             });
         });
         chartData.forEach(dataGroup=>{
