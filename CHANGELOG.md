@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.1.2] - 2023-05-26
+### Bug fix
+- ChartJs histogram/bars click bug fixed
+
 ## [0.1.1] - 2023-05-26
 ### Bug fix
 - ChartJs histogram click bug fixed

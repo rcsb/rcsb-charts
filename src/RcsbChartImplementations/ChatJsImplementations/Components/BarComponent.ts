@@ -5,7 +5,7 @@ import {BarClickCallbackType} from "../../../RcsbChartComponent/ChartConfigInter
 import Element from "chart.js/dist/core/core.element";
 
 type RawType = {x:string|number; y:number; id:any;};
-export function chartJsBarClick(dataContainer: DataContainerReader<ChartDataColumnInterface[]>, barClickCallback?:BarClickCallbackType) {
+export function chartJsBarClick(dataContainer: DataContainerReader<ChartDataColumnInterface[]>, axis: "x"|"y", barClickCallback?:BarClickCallbackType) {
     if(! barClickCallback)
         return undefined;
     return (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
@@ -13,7 +13,7 @@ export function chartJsBarClick(dataContainer: DataContainerReader<ChartDataColu
         if(!element)
             return;
         barClickCallback({
-            values: dataContainer.get()?.[element.$context.parsed.x].y.filter(d=>d.value>0) ?? [],
+            values: dataContainer.get()?.[element.$context.parsed[axis]].y.filter(d=>d.value>0) ?? [],
             y: element.$context.raw.y,
             x: element.$context.raw.x,
             id: element.$context.raw.id

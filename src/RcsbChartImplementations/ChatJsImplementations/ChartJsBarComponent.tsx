@@ -63,7 +63,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
                     },
                     tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },
-                onClick: chartJsBarClick(this.dataContainer, this.props.chartConfig?.barClickCallback)
+                onClick: chartJsBarClick(this.dataContainer, "y", this.props.chartConfig?.barClickCallback)
             }
         });
     }
