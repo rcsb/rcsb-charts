@@ -86,4 +86,7 @@ root.render(<ChartComponent
     data={[data, moreData, evenMoreData]}
     chartComponentImplementation={ChartJsHistogramComponent}
     dataProvider={new HistogramChartDataProvider()}
+    chartConfig={{
+        barClickCallback:(a)=>console.log(a)
+    }}
 />)

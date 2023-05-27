@@ -57,7 +57,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                     },
                     tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },
-                onClick: chartJsBarClick(this.dataContainer)
+                onClick: chartJsBarClick(this.dataContainer, this.props.chartConfig?.barClickCallback)
             }
         });
     }
