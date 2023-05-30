@@ -22,29 +22,6 @@ export class ChartTools {
         return ((chartDisplayConfig && (typeof chartDisplayConfig[key] === "string" || typeof chartDisplayConfig[key] === "number")) ? chartDisplayConfig[key] : this[key]) as unknown as T;
     }
 
-    public static mergeDomainMaxValue(data: ChartDataColumnInterface[], maxValue: number): ChartDataColumnInterface[] {
-        const out: ChartDataColumnInterface[] =  data.filter(d => parseFloat(d.x as string) < maxValue).map(d => ({
-            ...d,
-            x: parseFloat(d.x as string),
-            y: d.y
-        }));
-        const overflow = data.filter(d => parseFloat(d.x as string) >= maxValue);
-        if(overflow?.length > 0){
-            const others: number[] = overflow.reduce<number[]>((prev, curr) => {
-                if(prev.length == 0)
-                    return curr.y.map(e=>e.value)
-                else
-                    return prev.map((v,n)=>v+curr.y[n].value)
-            }, []);
-            if(others.length > 0 && others.reduce((prev,curr)=>(prev+curr),0) > 0)
-                out.push({
-                    x: maxValue,
-                    y: others.map((v,n)=>({value:v, color:overflow[0].y[n].color}))
-                });
-        }
-        return out;
-    }
-
     public static labelsAsNumber(data: ChartObjectInterface[][]): ChartObjectInterface[][]{
         return data.map(d=>d.map(e=>({
             ...e,

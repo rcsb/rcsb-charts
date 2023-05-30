@@ -12,9 +12,7 @@ export interface ChartObjectInterface<T=any> {
 
 export type BarClickCallbackType = (datum:ChartDataValueInterface, data:ChartDataColumnInterface[], e?:React.MouseEvent<any>)=>void;
 export interface ChartConfigInterface {
-    mergeDomainMaxValue?:number;
     mostPopulatedGroups?: number;
-    mergeName?: string;
     domainMinValue?:number;
     histogramBinIncrement?: number;
     tickIncrement?: {

@@ -1,4 +1,4 @@
-import {ChartDataProviderInterface, ChartDataColumnInterface} from "./ChartDataProviderInterface";
+import {ChartDataColumnInterface, ChartDataProviderInterface} from "./ChartDataProviderInterface";
 import {ChartConfigInterface, ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartTools} from "./ChartTools";
 
@@ -22,10 +22,7 @@ export class HistogramChartDataProvider implements ChartDataProviderInterface{
         const dx: number = (this.config?.histogramBinIncrement ? this.config?.histogramBinIncrement*0.5 : 0);
         return [
             this.config?.domainMinValue ?? Math.floor(Math.min(...this.data.map(d=>d.x as number))) - dx,
-            this.config?.mergeDomainMaxValue ?
-                Math.ceil(this.config?.mergeDomainMaxValue) + dx
-                :
-                Math.ceil(Math.max(...this.data.map(d=>d.x as number))) + dx
+            Math.ceil(Math.max(...this.data.map(d=>d.x as number))) + dx
         ]
     }
 
@@ -43,11 +40,7 @@ export class HistogramChartDataProvider implements ChartDataProviderInterface{
     private transformData(data: ChartDataColumnInterface[]): ChartDataColumnInterface[]{
         if(!data)
             return [];
-        let out: ChartDataColumnInterface[] = data;
-        if(this.config?.mergeDomainMaxValue) {
-            out = ChartTools.mergeDomainMaxValue(data, this.config.mergeDomainMaxValue);
-        }
-        return out.map(d=>({x:(d.x as number),y:d.y}));
+        return data.map(d=>({x:(d.x as number),y:d.y}));
     }
 
 }

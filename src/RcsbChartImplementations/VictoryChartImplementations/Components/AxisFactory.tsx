@@ -27,17 +27,9 @@ export class AxisFactory {
         />);
     }
 
-    public static getRegularAxis(config: ChartConfigInterface|undefined): JSX.Element {
+    public static getRegularAxis(config: ChartConfigInterface|undefined, props?: VictoryAxisProps): JSX.Element {
         return (<VictoryAxis
-            tickFormat={(t) => {
-                if(config?.mergeDomainMaxValue){
-                    if(parseFloat(t)<=config?.mergeDomainMaxValue)
-                        return t;
-                    else
-                        return "";
-                }
-                return t;
-            }}
+            {...props}
             label={config?.axisLabel}
             axisLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize", {})}} />}
             tickLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize", {})}} />}
