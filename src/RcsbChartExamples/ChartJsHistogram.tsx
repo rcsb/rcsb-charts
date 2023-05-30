@@ -4,6 +4,7 @@ import {ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
 import {HistogramChartDataProvider} from "../RcsbChartDataProvider/HistogramChartDataProvider";
 import {ChartJsHistogramComponent} from "../RcsbChartImplementations/ChatJsImplementations/ChartJsHistogramComponent";
+import {ChartDataValueInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
 
 const node: HTMLElement|null = document.getElementById("chart-element");
 if(node==null)
@@ -69,7 +70,8 @@ const moreData: ChartObjectInterface[]= [{
     label: 5,
     population: 4,
     objectConfig: {
-        color: "#b00"
+        color: "#b00",
+        objectId: ["label", "5", "4"]
     }
 }]
 
@@ -87,6 +89,7 @@ root.render(<ChartComponent
     chartComponentImplementation={ChartJsHistogramComponent}
     dataProvider={new HistogramChartDataProvider()}
     chartConfig={{
-        barClickCallback:(a)=>console.log(a)
+        barClickCallback:(a)=>console.log(a),
+        tooltipText:(a: ChartDataValueInterface<string[]>)=>a.id ? a.id.join(" - ") : "null"
     }}
 />)

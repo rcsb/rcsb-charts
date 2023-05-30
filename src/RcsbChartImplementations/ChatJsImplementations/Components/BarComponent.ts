@@ -9,11 +9,11 @@ export function chartJsBarClick(dataContainer: DataContainerReader<ChartDataColu
     if(! barClickCallback)
         return undefined;
     return (event: ChartEvent, elements: ActiveElement[], chart: Chart) => {
-        const element: Element<any,any> & {'$context': {raw:RawType;} & {parsed:{y:number;x: number;}}} = elements[0].element as any;
+        const element: Element<any,any> & {'$context': {raw:RawType;index:number;} & {parsed:{y:number;x: number;}}} = elements[0].element as any;
         if(!element)
             return;
         barClickCallback({
-            values: dataContainer.get()?.[element.$context.parsed[axis]].y.filter(d=>d.value>0) ?? [],
+            values: dataContainer.get()?.[element.$context.index].y.filter(d=>d.value>0) ?? [],
             y: element.$context.raw.y,
             x: element.$context.raw.x,
             id: element.$context.raw.id

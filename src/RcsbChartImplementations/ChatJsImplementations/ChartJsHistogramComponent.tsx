@@ -8,7 +8,7 @@ import {DataContainer} from "../../Utils/DataContainer";
 import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
 
-type ChartDataType = {x: string;y :number;};
+type ChartDataType = {x: number;y :number;};
 export class ChartJsHistogramComponent extends AbstractChartImplementation {
 
     private readonly elementId: string = uniqid("canvas_");
@@ -45,7 +45,13 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                 },
                 scales: {
                     x: {
-                        stacked: true
+                        type: 'linear',
+                        stacked: true,
+                        ticks: {
+                            callback: (value, index) =>{
+                                return value;
+                            }
+                        }
                     },
                     y: {
                         stacked: true
@@ -84,7 +90,7 @@ function getChartJsData(data: ChartDataColumnInterface[]){
     const N = data[0].y.length;
     return {
         datasets: Array(N).fill(undefined).map((v,n)=>({
-            data: data.filter(d=>d.y[n].value > 0).map(d=>({x:d.x.toString(), y:d.y[n].value, id:d.y[n].id})),
+            data: data.filter(d=>d.y[n].value > 0).map(d=>({x:d.x as number, y:d.y[n].value, id:d.y[n].id})),
             backgroundColor: data.filter(d=>d.y[n].value > 0).map(d=>d.y[n].color ?? "#999"),
         }))
     };

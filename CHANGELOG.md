@@ -2,6 +2,14 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.1.4] - 2023-05-30
+### Configuration
+- ChartJs histogram numerical x-axis 
+
+## [0.1.3] - 2023-05-26
+### Configuration
+- ChartJs histogram click bug fixed
+
 ## [0.1.2] - 2023-05-26
 ### Bug fix
 - ChartJs histogram/bars click bug fixed
