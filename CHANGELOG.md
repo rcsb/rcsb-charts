@@ -1,6 +1,10 @@
 # RCSB Saguaro App Changelog
 
 [Semantic Versioning](https://semver.org/)
+## [0.2.1] - 2023-05-30
+### Improvement 
+- Exposed axis tick values configuration
+
 ## [0.2.0] - 2023-05-30
 ### Breaking change
 - Removed `ChartConfigInterface.mergeDomainMaxValue` attribute. It should be responsibility of the library user

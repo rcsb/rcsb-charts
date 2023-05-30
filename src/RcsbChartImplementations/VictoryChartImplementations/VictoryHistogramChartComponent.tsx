@@ -5,7 +5,7 @@ import {Bar, VictoryBar, VictoryChart, VictoryStack} from "victory";
 import * as React from "react";
 import {BarComponent} from "./Components/BarComponent";
 import {TooltipFactory} from "./Components/TooltipFactory";
-import {ChartDataColumnInterface, ChartDataValueInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 import {VictoryChartDataInterface} from "./VictoryChartDataInterface";
 
@@ -23,7 +23,7 @@ export class VictoryHistogramChartComponent extends AbstractChartImplementation 
             width={width}
             domain={{x:this.props.dataProvider.xDomain()}}
         >
-            {AxisFactory.getDependentAxis()}
+            {AxisFactory.getDependentAxis(this.props.chartConfig)}
             {stack(data, nBins, this.props.chartConfig)}
             {AxisFactory.getRegularAxis(this.props.chartConfig)}
         </VictoryChart>);

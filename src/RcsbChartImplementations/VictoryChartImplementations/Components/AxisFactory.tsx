@@ -6,7 +6,7 @@ import {ChartConfigInterface} from "../../../RcsbChartComponent/ChartConfigInter
 
 export class AxisFactory {
 
-    public static getDependentAxis(props?: VictoryAxisProps): JSX.Element {
+    public static getDependentAxis(config?: ChartConfigInterface, props?: VictoryAxisProps): JSX.Element {
         return (<VictoryAxis
             {...props}
             dependentAxis={true}
@@ -19,6 +19,8 @@ export class AxisFactory {
             }}
             tickFormat={
                 (t: number)=>{
+                    if(config?.tickFormat?.imgAxis)
+                        return config.tickFormat.imgAxis(t);
                     return (!t.toString().includes('.') ? ChartTools.digitGrouping(t) : "");
                 }
             }
@@ -27,9 +29,14 @@ export class AxisFactory {
         />);
     }
 
-    public static getRegularAxis(config: ChartConfigInterface|undefined, props?: VictoryAxisProps): JSX.Element {
+    public static getRegularAxis(config?: ChartConfigInterface, props?: VictoryAxisProps): JSX.Element {
         return (<VictoryAxis
             {...props}
+            tickFormat={(t) => {
+                if(config?.tickFormat?.domAxis)
+                    return config.tickFormat.domAxis(t);
+                return t;
+            }}
             label={config?.axisLabel}
             axisLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize", {})}} />}
             tickLabelComponent={<VictoryLabel style={{fontFamily: ChartTools.getConfig<string>("fontFamily", {}), fontSize:ChartTools.getConfig<string>("fontSize", {})}} />}

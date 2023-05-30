@@ -19,6 +19,10 @@ export interface ChartConfigInterface {
         origin: number;
         increment: number
     };
+    tickFormat?:{
+        domAxis?:(x:string|number)=>string;
+        imgAxis?:(x:string|number)=>string;
+    };
     axisLabel?:string
     barClickCallback?:BarClickCallbackType;
     sort?:(b: ChartDataColumnInterface, a: ChartDataColumnInterface) => number;
