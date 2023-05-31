@@ -1,6 +1,6 @@
 {
   "name": "@rcsb/rcsb-charts",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "RCSB Charts",
   "main": "build/dist/charts.js",
   "files": [
@@ -74,7 +74,7 @@
     "react-dom": "^18.2.0",
     "rxjs": "^7.5.5",
     "uniqid": "^5.4.0",
-    "victory": "^36.6.8"
+    "victory": "^36.6.10"
   },
   "bugs": {
     "url": "https://github.com/rcsb/rcsb-saguaro-app/issues"
