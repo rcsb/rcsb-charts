@@ -6,6 +6,7 @@ import {ChartConfigInterface, ChartDisplayConfigInterface, ChartObjectInterface}
 import {UiButton} from "./Components/UiButton";
 import {ChartUi} from "./Components/ChartUi";
 import {UiText} from "./Components/UiText";
+import {isEqual} from "lodash";
 export interface ChartInterface {
     data: ChartObjectInterface[][];
     chartConfig?:ChartConfigInterface;
@@ -39,6 +40,11 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
                 }
             </div>
         );
+    }
+
+    componentDidUpdate(prevProps: Readonly<ChartInterface>, prevState: Readonly<ChartState>, snapshot?: any) {
+        if(this.props.chartConfig && !isEqual(prevProps.chartConfig,this.props.chartConfig))
+            this.setState({chartConfig: this.props.chartConfig});
     }
 
     private chartUI(excluded: number): JSX.Element {

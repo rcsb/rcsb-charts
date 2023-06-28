@@ -2,6 +2,14 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.3] - 2023-06-28
+### Bug fix
+- Update chart configuration on props change bug fixed
+
+## [0.2.3] - 2023-06-27
+### Ignore
+- Publish error
+
 ## [0.2.2] - 2023-05-31
 ### Dependency update
 - Victory update v36.6.10
