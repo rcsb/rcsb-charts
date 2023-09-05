@@ -2,7 +2,11 @@
 
 [Semantic Versioning](https://semver.org/)
 
-## [0.2.3] - 2023-06-28
+## [0.2.5] - 2023-09-05
+### Bug fix
+- ChartJS y-axis labels overflow partial fix
+
+## [0.2.4] - 2023-06-28
 ### Bug fix
 - Update chart configuration on props change bug fixed
 

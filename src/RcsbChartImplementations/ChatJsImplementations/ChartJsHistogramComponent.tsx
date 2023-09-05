@@ -13,13 +13,14 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
 
     private readonly elementId: string = uniqid("canvas_");
     private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
-    private rootElement: HTMLCanvasElement;
+    private readonly canvasRef: React.RefObject<HTMLCanvasElement> = React.createRef();
+    private readonly rootRef: React.RefObject<HTMLDivElement> = React.createRef();
     private chart: Chart<"bar",ChartDataType[],string>;
 
     render():JSX.Element {
         return (
-            <div id={this.elementId} style={{position:"relative", width: this.props.width, height: this.props.height}} >
-                <canvas/>
+            <div ref={this.rootRef} id={this.elementId} style={{position:"relative", width: this.props.width, height: this.props.height}} >
+                <canvas ref={this.canvasRef}/>
             </div>
         );
     }
@@ -27,8 +28,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     componentDidMount() {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
-        this.rootElement = document.getElementById(this.elementId) as HTMLCanvasElement;
-        const ctx: CanvasRenderingContext2D | null | undefined = this.rootElement.getElementsByTagName("canvas").item(0)?.getContext('2d');
+        const ctx: CanvasRenderingContext2D | null | undefined = this.canvasRef.current?.getElementsByTagName("canvas").item(0)?.getContext('2d');
         if(!ctx)
             return;
 
@@ -73,10 +73,10 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
         this.dataContainer.set(data);
         this.chart.data = getChartJsData(data);
         this.chart.update();
-        if(this.rootElement.style.width != nextProps.width.toString())
-            this.rootElement.style.width = nextProps.width.toString();
-        if(this.rootElement.style.height != nextProps.height.toString()) {
-            this.rootElement.style.height = nextProps.height.toString()+"px";
+        if(this.rootRef.current && this.rootRef.current.style.width != nextProps.width.toString())
+            this.rootRef.current.style.width = nextProps.width.toString();
+        if(this.rootRef.current && this.rootRef.current.style.height != nextProps.height.toString()) {
+            this.rootRef.current.style.height = nextProps.height.toString()+"px";
         }
         return false;
     }

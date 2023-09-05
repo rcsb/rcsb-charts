@@ -13,15 +13,17 @@ import {chartJsBarClick} from "./Components/BarComponent";
 type ChartDataType = {x: string;y :number;};
 export class ChartJsBarComponent extends AbstractChartImplementation {
 
+    private static readonly AXIS_LABEL_THR: number = 10;
     private readonly elementId: string = uniqid("canvas_");
     private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
-    private rootElement: HTMLCanvasElement;
+    private readonly canvasRef: React.RefObject<HTMLCanvasElement> = React.createRef();
+    private readonly rootRef: React.RefObject<HTMLDivElement> = React.createRef();
     private chart: Chart<"bar",ChartDataType[],string>;
 
     render():JSX.Element {
         return (
-            <div id={this.elementId} style={{position:"relative", width: this.props.width, height: this.props.height}} >
-                <canvas/>
+            <div id={this.elementId} ref={this.rootRef} style={{position:"relative", width: this.props.width, height: this.props.height}} >
+                <canvas ref={this.canvasRef}/>
             </div>
         );
     }
@@ -30,8 +32,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
-        this.rootElement = document.getElementById(this.elementId) as HTMLCanvasElement;
-        const ctx: CanvasRenderingContext2D | null | undefined = this.rootElement.getElementsByTagName("canvas").item(0)?.getContext('2d');
+        const ctx: CanvasRenderingContext2D | null | undefined = this.canvasRef.current?.getContext('2d');
         if(!ctx)
             return;
 
@@ -52,8 +53,16 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
                     },
                     y: {
                         stacked: true,
-                        afterFit: (axis: Scale)=> {
+                        afterFit: function (axis: Scale) {
                             axis.width = ChartTools.getConfig<number>("paddingLeft", displayConfig)
+                        },
+                        ticks: {
+                            callback: function (value, index) {
+                                return this.getLabelForValue(value as number).split("").reduce(
+                                    (prev, curr, index)=> ctx.measureText(prev+curr).width + ChartJsBarComponent.AXIS_LABEL_THR < ChartTools.getConfig<number>("paddingLeft", displayConfig) ? prev+curr : prev,
+                                    ""
+                                );
+                            }
                         }
                     }
                 },
@@ -73,10 +82,10 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
         this.dataContainer.set(data);
         this.chart.data = getChartJsData(data);
         this.chart.update();
-        if(this.rootElement.style.width != nextProps.width.toString())
-            this.rootElement.style.width = nextProps.width.toString();
-        if(this.rootElement.style.height != nextProps.height.toString()) {
-            this.rootElement.style.height = nextProps.height.toString()+"px";
+        if(this.rootRef.current && this.rootRef.current.style.width != nextProps.width.toString())
+            this.rootRef.current.style.width = nextProps.width.toString();
+        if(this.rootRef.current && this.rootRef.current.style.height != nextProps.height.toString()) {
+            this.rootRef.current.style.height = nextProps.height.toString()+"px";
         }
         return false;
     }
