@@ -69,6 +69,7 @@ root.render(<ChartComponent
             constHeight: 1000
         },
         domainMaxValue:10,
-        domainMinValue:0
+        domainMinValue:0,
+        axisLabel: "Axis Label"
     }}
 />)

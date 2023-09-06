@@ -50,6 +50,10 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                 scales: {
                     x: {
                         type: 'linear',
+                        title: {
+                            display: true,
+                            text: this.props.chartConfig?.axisLabel
+                        },
                         stacked: true,
                         ticks: {
                             callback: function(value, index) {
@@ -58,8 +62,8 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                                 return this.getLabelForValue(value as number);
                             }
                         },
-                        min: this.props.chartConfig?.domainMinValue,
-                        max: this.props.chartConfig?.domainMaxValue
+                        suggestedMin: this.props.chartConfig?.domainMinValue,
+                        suggestedMax: this.props.chartConfig?.domainMaxValue
                     },
                     y: {
                         stacked: true,
