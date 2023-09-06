@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.18] - 2023-09-06
+### Bug fix
+- ChartJS click event bug fixed
+
 ## [0.2.17] - 2023-09-06
 ### Improvement
 - ChartJS histogram axis label
