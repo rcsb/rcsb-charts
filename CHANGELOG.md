@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.10] - 2023-09-06
+### Improvement
+- ChartJS tooltip single label
+
 ## [0.2.9] - 2023-09-06
 ### Bug fix
 - ChartJS height config bug fixed

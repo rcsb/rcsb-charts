@@ -9,7 +9,10 @@ export function chartJsTooltip(tooltipText?:(a: ChartDataValueInterface) => stri
         return undefined;
     return {
         callbacks: {
-            afterLabel: (tooltipItem: TooltipItem<any>) =>{
+            title: function (){
+                return '';
+            },
+            label: function (tooltipItem: TooltipItem<any>){
                 const raw: RawType = tooltipItem.raw as RawType;
                 return tooltipText?.({
                     values: tooltipItem.dataset.data,
