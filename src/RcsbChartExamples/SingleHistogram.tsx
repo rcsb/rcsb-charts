@@ -28,6 +28,9 @@ root.render(<ChartComponent
     chartComponentImplementation={VictoryHistogramChartComponent}
     dataProvider={new HistogramChartDataProvider()}
     chartConfig={{
-        histogramBinIncrement:1
+        histogramBinIncrement:1,
+        chartDisplayConfig:{
+            constHeight: 600
+        }
     }}
 />)

@@ -2,6 +2,11 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.7] - 2023-09-06
+### Bug fix
+- ChartJS histogram axis-y label size 
+- ChartJS histogram axis-x domain start position
+
 ## [0.2.6] - 2023-09-05
 ### Bug fix
 - ChartJS histogram bug fixed

@@ -3,10 +3,12 @@ import * as React from "react";
 import {AbstractChartImplementation, AbstractChartImplementationInterface} from "../AbstractChartImplementation";
 import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import uniqid from "uniqid";
-import Chart from 'chart.js/auto';
+import Chart, {Scale} from 'chart.js/auto';
 import {DataContainer} from "../../Utils/DataContainer";
 import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
+import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
+import {ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 
 type ChartDataType = {x: number;y :number;};
 export class ChartJsHistogramComponent extends AbstractChartImplementation {
@@ -28,6 +30,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     componentDidMount() {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
+        const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
         const ctx: CanvasRenderingContext2D | null | undefined = this.canvasRef.current?.getContext('2d');
         if(!ctx)
             return;
@@ -48,13 +51,17 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                         type: 'linear',
                         stacked: true,
                         ticks: {
-                            callback: (value, index) =>{
-                                return value;
+                            callback: function(value, index) {
+                                return this.getLabelForValue(value as number);
                             }
-                        }
+                        },
+                        suggestedMin: this.props.chartConfig?.domainMinValue
                     },
                     y: {
-                        stacked: true
+                        stacked: true,
+                        afterFit: function (axis: Scale) {
+                            axis.width = ChartTools.getConfig<number>("paddingLeft", displayConfig)
+                        },
                     }
                 },
                 plugins: {

@@ -35,6 +35,9 @@ root.render(<ChartComponent
     chartComponentImplementation={ChartJsBarComponent}
     dataProvider={new BarChartDataProvider()}
     chartConfig={{
-        mostPopulatedGroups: 3
+        mostPopulatedGroups: 3,
+        chartDisplayConfig: {
+            constWidth: 100
+        }
     }}
 />)
