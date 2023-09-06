@@ -62,7 +62,7 @@ root.render(<ChartComponent
         histogramBinIncrement:1,
         tooltipText: (a: ChartDataValueInterface<string>)=>{
             if(typeof a.id == "string")
-                return `value: ${a.y} x: ${a.x} id: ${a.id}`;
+                return [`value: ${a.y}`, `x: ${a.x}`, `id: ${a.id}`];
         },
         barClickCallback: (a) => console.log(a),
         chartDisplayConfig: {

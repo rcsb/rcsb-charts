@@ -26,7 +26,7 @@ export interface ChartConfigInterface {
     axisLabel?:string
     barClickCallback?:BarClickCallbackType;
     sort?:(b: ChartDataColumnInterface, a: ChartDataColumnInterface) => number;
-    tooltipText?:(a: ChartDataValueInterface) => string|undefined;
+    tooltipText?:(a: ChartDataValueInterface) => string|string[]|undefined;
     chartDisplayConfig?: Partial<ChartDisplayConfigInterface>;
 }
 export interface ChartDisplayConfigInterface {

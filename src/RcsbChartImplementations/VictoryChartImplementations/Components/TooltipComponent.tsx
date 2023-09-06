@@ -37,8 +37,11 @@ export class TooltipComponent extends React.Component<TooltipPropsType> {
         const d: ChartDataValueInterface = {
             ...(this.props.datum as VictoryChartDataInterface),
         };
-        if(typeof this.props.tooltipText?.(d) === "string") {
-            return this.props.tooltipText(d) ?? ChartTools.digitGrouping(d.y);
-        }
+        if(typeof this.props.tooltipText?.(d) === "string")
+            return this.props.tooltipText(d) as string;
+
+        if(Array.isArray(this.props.tooltipText?.(d)))
+            return (this.props.tooltipText?.(d) as Array<string>).join("\n");
+        return ChartTools.digitGrouping(d.y);
     }
 }
