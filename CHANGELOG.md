@@ -2,6 +2,11 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.8] - 2023-09-06
+### Improvement
+- ChartJS bar min length
+- ChartJS bar width
+
 ## [0.2.7] - 2023-09-06
 ### Bug fix
 - ChartJS histogram axis-y label size 

@@ -8,7 +8,7 @@ import {DataContainer} from "../../Utils/DataContainer";
 import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
-import {ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
+import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 
 type ChartDataType = {x: number;y :number;};
 export class ChartJsHistogramComponent extends AbstractChartImplementation {
@@ -30,7 +30,8 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     componentDidMount() {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
-        const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};
+        const chartConfig: ChartConfigInterface|undefined = this.props.chartConfig;
+        const displayConfig: Partial<ChartDisplayConfigInterface> = chartConfig?.chartDisplayConfig ?? {};
         const ctx: CanvasRenderingContext2D | null | undefined = this.canvasRef.current?.getContext('2d');
         if(!ctx)
             return;
@@ -52,6 +53,8 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                         stacked: true,
                         ticks: {
                             callback: function(value, index) {
+                                if(chartConfig?.tickFormat?.domAxis)
+                                    return chartConfig.tickFormat.domAxis(this.getLabelForValue(value as number));
                                 return this.getLabelForValue(value as number);
                             }
                         },
@@ -99,6 +102,7 @@ function getChartJsData(data: ChartDataColumnInterface[]){
         datasets: Array(N).fill(undefined).map((v,n)=>({
             data: data.filter(d=>d.y[n].value > 0).map(d=>({x:d.x as number, y:d.y[n].value, id:d.y[n].id})),
             backgroundColor: data.filter(d=>d.y[n].value > 0).map(d=>d.y[n].color ?? "#999"),
+            minBarLength: 5
         }))
     };
 }

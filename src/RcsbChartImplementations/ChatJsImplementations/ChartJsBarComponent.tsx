@@ -92,7 +92,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
 
 }
 
-function getChartJsData(data: ChartDataColumnInterface[]){
+function getChartJsData(data: ChartDataColumnInterface[], displayConfig?: ChartDisplayConfigInterface){
     if(!data || data.length == 0)
         return {
             datasets: []
@@ -103,6 +103,8 @@ function getChartJsData(data: ChartDataColumnInterface[]){
         datasets: Array(N).fill(undefined).map((v,n)=>({
             data: reverseData.filter(d=>d.y[n].value > 0).map(d=>({x:d.x.toString(), y:d.y[n].value, id:d.y[n].id})),
             backgroundColor: reverseData.filter(d=>d.y[n].value > 0).map(d=>d.y[n].color ?? "#999"),
+            minBarLength: 5,
+            barThickness: displayConfig?.barWidth ?? 10
         }))
     };
 }
