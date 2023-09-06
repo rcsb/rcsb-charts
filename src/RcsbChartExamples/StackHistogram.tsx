@@ -67,6 +67,7 @@ root.render(<ChartComponent
         barClickCallback: (a) => console.log(a),
         chartDisplayConfig: {
             constHeight: 1000
-        }
+        },
+        domainMaxValue:10
     }}
 />)

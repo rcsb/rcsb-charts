@@ -58,7 +58,8 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                                 return this.getLabelForValue(value as number);
                             }
                         },
-                        suggestedMin: this.props.chartConfig?.domainMinValue
+                        suggestedMin: this.props.chartConfig?.domainMinValue,
+                        suggestedMax: this.props.chartConfig?.domainMaxValue
                     },
                     y: {
                         stacked: true,

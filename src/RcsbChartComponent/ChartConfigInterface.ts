@@ -14,6 +14,7 @@ export type BarClickCallbackType = (datum:ChartDataValueInterface, data:ChartDat
 export interface ChartConfigInterface {
     mostPopulatedGroups?: number;
     domainMinValue?:number;
+    domainMaxValue?:number;
     histogramBinIncrement?: number;
     tickIncrement?: {
         origin: number;
