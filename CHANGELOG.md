@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.9] - 2023-09-06
+### Bug fix
+- ChartJS height config bug fixed
+
 ## [0.2.8] - 2023-09-06
 ### Improvement
 - ChartJS bar min length

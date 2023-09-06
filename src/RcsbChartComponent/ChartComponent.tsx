@@ -30,7 +30,7 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.state.chartConfig?.chartDisplayConfig ?? {};
         const {data,excludedData}: {data: ChartDataColumnInterface[]; excludedData?:ChartDataColumnInterface[];} = this.props.dataProvider.getChartData();
         const width: number = ChartTools.getConfig<number>("paddingLeft", displayConfig) + ChartTools.getConfig<number>("constWidth", displayConfig) + ChartTools.getConfig<number>("paddingRight", displayConfig);
-        const height: number = ChartTools.getConfig<number>("paddingTopLarge", displayConfig) + data.length*ChartTools.getConfig<number>("xIncrement", displayConfig);
+        const height: number = ChartTools.getConfig<number>("paddingTopLarge", displayConfig) + (displayConfig.constHeight ?? data.length*ChartTools.getConfig<number>("xIncrement", displayConfig));
         const ChartComponent: AbstractChartImplementationType = this.props.chartComponentImplementation;
         return (
             <div style={{width:width}}>

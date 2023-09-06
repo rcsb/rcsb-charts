@@ -7,6 +7,7 @@ import {ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
 import {HistogramChartDataProvider} from "../RcsbChartDataProvider/HistogramChartDataProvider";
 import {ChartDataValueInterface} from "../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartJsHistogramComponent} from "../RcsbChartImplementations/ChatJsImplementations/ChartJsHistogramComponent";
 
 const node: HTMLElement|null = document.getElementById("chart-element");
 if(node==null)
@@ -55,7 +56,7 @@ const data:ChartObjectInterface[][]= [
 const root = createRoot(node);
 root.render(<ChartComponent
     data={data}
-    chartComponentImplementation={VictoryHistogramChartComponent}
+    chartComponentImplementation={ChartJsHistogramComponent}
     dataProvider={new HistogramChartDataProvider()}
     chartConfig={{
         histogramBinIncrement:1,
@@ -63,6 +64,9 @@ root.render(<ChartComponent
             if(typeof a.id == "string")
                 return `value: ${a.y} x: ${a.x} id: ${a.id}`;
         },
-        barClickCallback: (a) => console.log(a)
+        barClickCallback: (a) => console.log(a),
+        chartDisplayConfig: {
+            constHeight: 1000
+        }
     }}
 />)
