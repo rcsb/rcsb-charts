@@ -25,7 +25,7 @@ export function chartJsTooltip(tooltipText?:(a: ChartDataValueInterface) => stri
             label: function (tooltipItem: TooltipItem<any>){
                 const raw: RawType = tooltipItem.raw as RawType;
                 const tt= tooltipText?.({
-                    values: tooltipItem.chart.data.datasets.map(d=>d.data).flat<ChartDataset<any,any>[]>().filter(d=>d.x == raw.x),
+                    values: tooltipItem.chart.data.datasets.map(d=>d.data).flat<ChartDataset<any,any>[]>().filter(d=>d.x == raw.x).map(d=>({value: d.y, id:d.id})),
                     y: raw.y,
                     x: raw.x,
                     id: raw.id
