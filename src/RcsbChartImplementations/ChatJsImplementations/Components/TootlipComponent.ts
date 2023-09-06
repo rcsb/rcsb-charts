@@ -9,14 +9,29 @@ export function chartJsTooltip(tooltipText?:(a: ChartDataValueInterface) => stri
         return undefined;
     return {
         callbacks: {
+            title: function(tooltipItem: TooltipItem<any>[]) {
+                const raw: RawType = tooltipItem[0].raw as RawType;
+                const tt= tooltipText?.({
+                    values: tooltipItem[0].dataset.data,
+                    y: raw.y,
+                    x: raw.x,
+                    id: raw.id
+                });
+                if(Array.isArray(tt))
+                    return tt[0];
+                return raw.x.toString();
+            },
             label: function (tooltipItem: TooltipItem<any>){
                 const raw: RawType = tooltipItem.raw as RawType;
-                return tooltipText?.({
+                const tt= tooltipText?.({
                     values: tooltipItem.dataset.data,
                     y: raw.y,
                     x: raw.x,
                     id: raw.id
                 })
+                if(Array.isArray(tt))
+                    return tt.slice(1);
+                return tt;
             }
         }
     }
