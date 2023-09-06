@@ -2,6 +2,7 @@ import {
     ChartDataValueInterface
 } from "../../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {TooltipItem} from "chart.js/auto";
+import {ChartDataset} from "chart.js/dist/types";
 
 type RawType = {x:string|number; y:number; id:any;};
 export function chartJsTooltip(tooltipText?:(a: ChartDataValueInterface) => string|string[]|undefined) {
@@ -24,7 +25,7 @@ export function chartJsTooltip(tooltipText?:(a: ChartDataValueInterface) => stri
             label: function (tooltipItem: TooltipItem<any>){
                 const raw: RawType = tooltipItem.raw as RawType;
                 const tt= tooltipText?.({
-                    values: tooltipItem.dataset.data,
+                    values: tooltipItem.chart.data.datasets.map(d=>d.data).flat<ChartDataset<any,any>[]>().filter(d=>d.x == raw.x),
                     y: raw.y,
                     x: raw.x,
                     id: raw.id

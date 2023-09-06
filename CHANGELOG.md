@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.13] - 2023-09-06
+### Bug fix
+- ChartJS tooltip callback includes all values
+
 ## [0.2.12] - 2023-09-06
 ### Improvement
 - ChartJS tooltip title and label
