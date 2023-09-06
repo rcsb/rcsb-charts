@@ -12,7 +12,6 @@ export function chartJsBarClick(dataContainer: DataContainerReader<ChartDataColu
         const element: Element<any,any> & {'$context': {raw:RawType;index:number;} & {parsed:{y:number;x: number;}}} = elements[0].element as any;
         if(!element)
             return;
-        console.log(event);
         barClickCallback({
             values: dataContainer.get()?.[element.$context.index].y.filter(d=>d.value>0) ?? [],
             y: element.$context.raw.y,
