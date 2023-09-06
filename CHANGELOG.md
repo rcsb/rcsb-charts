@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.6] - 2023-09-05
+### Bug fix
+- ChartJS histogram bug fixed
+
 ## [0.2.5] - 2023-09-05
 ### Bug fix
 - ChartJS y-axis labels overflow partial fix

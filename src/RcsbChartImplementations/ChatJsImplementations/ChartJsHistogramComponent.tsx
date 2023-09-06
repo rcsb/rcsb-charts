@@ -28,7 +28,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     componentDidMount() {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = this.props.dataProvider.getChartData();
         this.dataContainer.set(data);
-        const ctx: CanvasRenderingContext2D | null | undefined = this.canvasRef.current?.getElementsByTagName("canvas").item(0)?.getContext('2d');
+        const ctx: CanvasRenderingContext2D | null | undefined = this.canvasRef.current?.getContext('2d');
         if(!ctx)
             return;
 

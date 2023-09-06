@@ -1,6 +1,6 @@
 {
   "name": "@rcsb/rcsb-charts",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "RCSB Charts",
   "main": "build/dist/charts.js",
   "files": [
