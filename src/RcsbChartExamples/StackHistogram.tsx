@@ -68,6 +68,7 @@ root.render(<ChartComponent
         chartDisplayConfig: {
             constHeight: 1000
         },
-        domainMaxValue:10
+        domainMaxValue:10,
+        domainMinValue:0
     }}
 />)

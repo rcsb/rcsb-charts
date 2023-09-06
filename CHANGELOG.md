@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.16] - 2023-09-06
+### Improvement
+- ChartJS histogram strict domain min max value
+
 ## [0.2.15] - 2023-09-06
 ### Improvement
 - ChartJS histogram domain max value
