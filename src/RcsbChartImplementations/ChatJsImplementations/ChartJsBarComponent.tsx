@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {AbstractChartImplementation, AbstractChartImplementationInterface} from "../AbstractChartImplementation";
 import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
-import {ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
+import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 import uniqid from "uniqid";
 import Chart, {Scale} from 'chart.js/auto';
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
@@ -38,7 +38,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
 
         this.chart = new Chart<"bar",ChartDataType[],string>(ctx,{
             type: 'bar',
-            data: getChartJsData(data),
+            data: getChartJsData(data, this.props.chartConfig),
             options:{
                 responsive: true,
                 maintainAspectRatio: false,
@@ -80,7 +80,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
     shouldComponentUpdate(nextProps: Readonly<AbstractChartImplementationInterface>, nextState: Readonly<any>, nextContext: any): boolean {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = nextProps.dataProvider.getChartData();
         this.dataContainer.set(data);
-        this.chart.data = getChartJsData(data);
+        this.chart.data = getChartJsData(data, this.props.chartConfig);
         this.chart.update();
         if(this.rootRef.current && this.rootRef.current.style.width != nextProps.width.toString())
             this.rootRef.current.style.width = nextProps.width.toString();
@@ -92,7 +92,7 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
 
 }
 
-function getChartJsData(data: ChartDataColumnInterface[], displayConfig?: ChartDisplayConfigInterface){
+function getChartJsData(data: ChartDataColumnInterface[], chartConfig?: ChartConfigInterface){
     if(!data || data.length == 0)
         return {
             datasets: []
@@ -101,10 +101,10 @@ function getChartJsData(data: ChartDataColumnInterface[], displayConfig?: ChartD
     const N = reverseData[0].y.length;
     return {
         datasets: Array(N).fill(undefined).map((v,n)=>({
-            data: reverseData.filter(d=>d.y[n].value > 0).map(d=>({x:d.x.toString(), y:d.y[n].value, id:d.y[n].id})),
-            backgroundColor: reverseData.filter(d=>d.y[n].value > 0).map(d=>d.y[n].color ?? "#999"),
-            minBarLength: 5,
-            barThickness: displayConfig?.barWidth ?? 10
+            data: reverseData.filter(d=>d.y[n].value > 0 || chartConfig?.domainEmptyBins).map(d=>({x:d.x.toString(), y:d.y[n].value, id:d.y[n].id})),
+            backgroundColor: reverseData.filter(d=>(d.y[n].value > 0 || chartConfig?.domainEmptyBins)).map(d=>d.y[n].color ?? "#999"),
+            minBarLength: ChartTools.getConfig<number>("minBarLength",  chartConfig?.chartDisplayConfig),
+            barThickness: ChartTools.getConfig<number>("barWidth",  chartConfig?.chartDisplayConfig)
         }))
     };
 }

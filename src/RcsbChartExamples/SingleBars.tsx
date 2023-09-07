@@ -14,7 +14,7 @@ if(node==null)
 
 const data:ChartObjectInterface[]= [{
     label: "A",
-    population: 1
+    population: 0
 },{
     label: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     population: 2
@@ -35,9 +35,10 @@ root.render(<ChartComponent
     chartComponentImplementation={ChartJsBarComponent}
     dataProvider={new BarChartDataProvider()}
     chartConfig={{
-        mostPopulatedGroups: 3,
         chartDisplayConfig: {
-            constWidth: 100
-        }
+            constWidth: 100,
+            minBarLength: 0
+        },
+        domainEmptyBins: true
     }}
 />)

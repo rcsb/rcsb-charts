@@ -38,7 +38,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
 
         this.chart = new Chart<"bar",ChartDataType[],string>(ctx,{
             type: 'bar',
-            data: getChartJsData(data),
+            data: getChartJsData(data, this.props.chartConfig),
             options:{
                 responsive: true,
                 maintainAspectRatio: false,
@@ -86,7 +86,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     shouldComponentUpdate(nextProps: Readonly<AbstractChartImplementationInterface>, nextState: Readonly<any>, nextContext: any): boolean {
         const {data}: { data: ChartDataColumnInterface[]; excludedData?: ChartDataColumnInterface[]; } = nextProps.dataProvider.getChartData();
         this.dataContainer.set(data);
-        this.chart.data = getChartJsData(data);
+        this.chart.data = getChartJsData(data, this.props.chartConfig);
         this.chart.update();
         if(this.rootRef.current && this.rootRef.current.style.width != nextProps.width.toString())
             this.rootRef.current.style.width = nextProps.width.toString();
@@ -97,7 +97,7 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
     }
 
 }
-function getChartJsData(data: ChartDataColumnInterface[]){
+function getChartJsData(data: ChartDataColumnInterface[], chartConfig?: ChartConfigInterface){
     if(!data || data.length == 0)
         return {
             datasets: []
@@ -105,9 +105,9 @@ function getChartJsData(data: ChartDataColumnInterface[]){
     const N = data[0].y.length;
     return {
         datasets: Array(N).fill(undefined).map((v,n)=>({
-            data: data.filter(d=>d.y[n].value > 0).map(d=>({x:d.x as number, y:d.y[n].value, id:d.y[n].id})),
-            backgroundColor: data.filter(d=>d.y[n].value > 0).map(d=>d.y[n].color ?? "#999"),
-            minBarLength: 5
+            data: data.filter(d=>d.y[n].value > 0 || chartConfig?.domainEmptyBins).map(d=>({x:d.x as number, y:d.y[n].value, id:d.y[n].id})),
+            backgroundColor: data.filter(d=>d.y[n].value > 0 || chartConfig?.domainEmptyBins).map(d=>d.y[n].color ?? "#999"),
+            minBarLength: ChartTools.getConfig<number>("minBarLength",  chartConfig?.chartDisplayConfig)
         }))
     };
 }

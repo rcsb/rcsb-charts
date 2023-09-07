@@ -17,6 +17,7 @@ export class ChartTools {
     private static readonly barWidth: number = 10;
     private static readonly fontFamily: string = "\"Helvetica Neue\",Helvetica,Arial,sans-serif";
     private static readonly fontSize: number = 12;
+    private static readonly minBarLength: number = 5;
 
     public static getConfig<T>(key: keyof ChartDisplayConfigInterface, chartDisplayConfig?:Partial<ChartDisplayConfigInterface>): T {
         return ((chartDisplayConfig && (typeof chartDisplayConfig[key] === "string" || typeof chartDisplayConfig[key] === "number")) ? chartDisplayConfig[key] : this[key]) as unknown as T;

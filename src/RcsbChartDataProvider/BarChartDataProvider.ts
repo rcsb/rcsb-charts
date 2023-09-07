@@ -16,7 +16,7 @@ export class BarChartDataProvider implements ChartDataProviderInterface{
         const subValues: Map<string|number, number> = new Map<string, number>();
         data.forEach(d=>{
             mergedValues.set(d.x,d.y[0].value);
-        })
+        });
         subData.forEach((d)=>{
             subValues.set(d.x,d.y.reduce((prev,curr)=>(prev+curr.value),0));
         });

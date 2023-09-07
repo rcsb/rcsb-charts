@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.20] - 2023-09-07
+### Improvement
+- New configuration options `minBarLength` and `domainEmptyBins`
+
 ## [0.2.19] - 2023-09-06
 ### Bug fix
 - Removed console log

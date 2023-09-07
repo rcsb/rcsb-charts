@@ -15,6 +15,7 @@ export interface ChartConfigInterface {
     mostPopulatedGroups?: number;
     domainMinValue?:number;
     domainMaxValue?:number;
+    domainEmptyBins?: boolean;
     histogramBinIncrement?: number;
     tickIncrement?: {
         origin: number;
@@ -40,6 +41,7 @@ export interface ChartDisplayConfigInterface {
     xIncrement: number;
     xDomainPadding: number;
     barWidth: number;
+    minBarLength: number;
     fontFamily: string;
     fontSize: number;
 }
