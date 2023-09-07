@@ -1,4 +1,4 @@
-import {AbstractChartImplementation} from "../AbstractChartImplementation";
+import {AbstractChartImplementationInterface} from "../AbstractChartImplementation";
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {AxisFactory} from "./Components/AxisFactory";
 import {Bar, VictoryAxis, VictoryBar, VictoryChart, VictoryStack} from "victory";
@@ -6,11 +6,11 @@ import {LabelComponent} from "./Components/LabelComponent";
 import * as React from "react";
 import {BarComponent} from "./Components/BarComponent";
 import {TooltipFactory} from "./Components/TooltipFactory";
-import {ChartDataColumnInterface, ChartDataValueInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
+import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 import {VictoryChartDataInterface} from "./VictoryChartDataInterface";
 
-export class VictoryBarChartComponent extends AbstractChartImplementation {
+export class VictoryBarChartComponent extends React.Component<AbstractChartImplementationInterface> {
     render():JSX.Element {
         const {data}: {data: ChartDataColumnInterface[]; excludedData?:ChartDataColumnInterface[];} = this.props.dataProvider.getChartData();
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.props.chartConfig?.chartDisplayConfig ?? {};

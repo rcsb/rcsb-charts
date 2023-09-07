@@ -1,4 +1,4 @@
-import {AbstractChartImplementation} from "../AbstractChartImplementation";
+import {AbstractChartImplementationInterface} from "../AbstractChartImplementation";
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {AxisFactory} from "./Components/AxisFactory";
 import {Bar, VictoryBar, VictoryChart, VictoryStack} from "victory";
@@ -9,7 +9,7 @@ import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataPro
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 import {VictoryChartDataInterface} from "./VictoryChartDataInterface";
 
-export class VictoryHistogramChartComponent extends AbstractChartImplementation {
+export class VictoryHistogramChartComponent extends React.Component<AbstractChartImplementationInterface> {
 
     render() {
         const {data}: { data: ChartDataColumnInterface[];} = this.props.dataProvider.getChartData();

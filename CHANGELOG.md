@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.21] - 2023-09-07
+### Dependency update
+- Multiple dependencies update
+
 ## [0.2.20] - 2023-09-07
 ### Improvement
 - New configuration options `minBarLength` and `domainEmptyBins`

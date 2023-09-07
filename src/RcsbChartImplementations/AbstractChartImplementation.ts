@@ -9,5 +9,4 @@ export interface AbstractChartImplementationInterface {
     chartConfig?: ChartConfigInterface;
 }
 
-export abstract class AbstractChartImplementation extends React.Component<AbstractChartImplementationInterface>{}
-export type AbstractChartImplementationType = typeof AbstractChartImplementation;
+export type AbstractChartImplementationType = typeof React.Component<AbstractChartImplementationInterface>;

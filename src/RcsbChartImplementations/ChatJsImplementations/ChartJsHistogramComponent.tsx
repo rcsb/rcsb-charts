@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {AbstractChartImplementation, AbstractChartImplementationInterface} from "../AbstractChartImplementation";
+import {AbstractChartImplementationInterface} from "../AbstractChartImplementation";
 import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import uniqid from "uniqid";
 import Chart, {Scale} from 'chart.js/auto';
@@ -11,7 +11,7 @@ import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 
 type ChartDataType = {x: number;y :number;};
-export class ChartJsHistogramComponent extends AbstractChartImplementation {
+export class ChartJsHistogramComponent extends React.Component<AbstractChartImplementationInterface> {
 
     private readonly elementId: string = uniqid("canvas_");
     private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
@@ -60,6 +60,10 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                                 if(chartConfig?.tickFormat?.domAxis)
                                     return chartConfig.tickFormat.domAxis(this.getLabelForValue(value as number));
                                 return this.getLabelForValue(value as number);
+                            },
+                            font: {
+                                family: ChartTools.getConfig<string>("fontFamily", displayConfig),
+                                size: ChartTools.getConfig<number>("fontSize", displayConfig)
                             }
                         },
                         suggestedMin: this.props.chartConfig?.domainMinValue,
@@ -70,6 +74,12 @@ export class ChartJsHistogramComponent extends AbstractChartImplementation {
                         afterFit: function (axis: Scale) {
                             axis.width = ChartTools.getConfig<number>("paddingLeft", displayConfig)
                         },
+                        ticks: {
+                            font: {
+                                family: ChartTools.getConfig<string>("fontFamily", displayConfig),
+                                size: ChartTools.getConfig<number>("fontSize", displayConfig)
+                            }
+                        }
                     }
                 },
                 plugins: {

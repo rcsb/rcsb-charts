@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {AbstractChartImplementation, AbstractChartImplementationInterface} from "../AbstractChartImplementation";
+import {AbstractChartImplementationInterface} from "../AbstractChartImplementation";
 import {ChartDataColumnInterface} from "../../RcsbChartDataProvider/ChartDataProviderInterface";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
 import uniqid from "uniqid";
@@ -11,7 +11,7 @@ import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
 
 type ChartDataType = {x: string;y :number;};
-export class ChartJsBarComponent extends AbstractChartImplementation {
+export class ChartJsBarComponent extends React.Component<AbstractChartImplementationInterface> {
 
     private static readonly AXIS_LABEL_THR: number = 10;
     private readonly elementId: string = uniqid("canvas_");
@@ -49,7 +49,13 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
                 },
                 scales: {
                     x: {
-                        stacked: true
+                        stacked: true,
+                        ticks: {
+                            font: {
+                                family: ChartTools.getConfig<string>("fontFamily", displayConfig),
+                                size: ChartTools.getConfig<number>("fontSize", displayConfig)
+                            }
+                        }
                     },
                     y: {
                         stacked: true,
@@ -62,6 +68,10 @@ export class ChartJsBarComponent extends AbstractChartImplementation {
                                     (prev, curr, index)=> ctx.measureText(prev+curr).width + ChartJsBarComponent.AXIS_LABEL_THR < ChartTools.getConfig<number>("paddingLeft", displayConfig) ? prev+curr : prev,
                                     ""
                                 );
+                            },
+                            font: {
+                                family: ChartTools.getConfig<string>("fontFamily", displayConfig),
+                                size: ChartTools.getConfig<number>("fontSize", displayConfig)
                             }
                         }
                     }
