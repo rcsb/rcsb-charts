@@ -80,7 +80,8 @@ export class ChartJsBarComponent extends React.Component<AbstractChartImplementa
                     legend: {
                         display: !!this.props.chartConfig?.legendPosition,
                         position: this.props.chartConfig?.legendPosition,
-                        align: this.props.chartConfig?.legendAlignment || 'center'
+                        align: this.props.chartConfig?.legendAlignment || 'center',
+                        onClick: function(){} // disable legend click
                     },
                     tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },

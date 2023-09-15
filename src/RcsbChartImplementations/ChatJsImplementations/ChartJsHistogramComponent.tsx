@@ -86,7 +86,8 @@ export class ChartJsHistogramComponent extends React.Component<AbstractChartImpl
                     legend: {
                         display: !!this.props.chartConfig?.legendPosition,
                         position: this.props.chartConfig?.legendPosition,
-                        align: this.props.chartConfig?.legendAlignment
+                        align: this.props.chartConfig?.legendAlignment,
+                        onClick: function(){} // disable legend click
                     },
                     tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },
