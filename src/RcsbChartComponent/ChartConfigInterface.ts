@@ -30,6 +30,8 @@ export interface ChartConfigInterface {
     sort?:(b: ChartDataColumnInterface, a: ChartDataColumnInterface) => number;
     tooltipText?:(a: ChartDataValueInterface) => string|string[]|undefined;
     chartDisplayConfig?: Partial<ChartDisplayConfigInterface>;
+    legendPosition?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+    legendAlignment?: 'start' | 'center' | 'end' | undefined;
 }
 export interface ChartDisplayConfigInterface {
     paddingLeft: number;

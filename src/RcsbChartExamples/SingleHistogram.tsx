@@ -31,6 +31,8 @@ root.render(<ChartComponent
         histogramBinIncrement:1,
         chartDisplayConfig:{
             constHeight: 600
-        }
+        },
+        legendPosition: 'bottom',
+        legendAlignment: 'center'
     }}
 />)

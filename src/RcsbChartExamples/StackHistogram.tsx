@@ -70,6 +70,8 @@ root.render(<ChartComponent
         },
         domainMaxValue:10,
         domainMinValue:0,
-        axisLabel: "Axis Label"
+        axisLabel: "Axis Label",
+        legendPosition: 'bottom',
+        legendAlignment: 'center'
     }}
 />)

@@ -84,7 +84,9 @@ export class ChartJsHistogramComponent extends React.Component<AbstractChartImpl
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: !!this.props.chartConfig?.legendPosition,
+                        position: this.props.chartConfig?.legendPosition,
+                        align: this.props.chartConfig?.legendAlignment
                     },
                     tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },

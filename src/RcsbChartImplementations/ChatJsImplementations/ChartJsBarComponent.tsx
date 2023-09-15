@@ -78,7 +78,9 @@ export class ChartJsBarComponent extends React.Component<AbstractChartImplementa
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: !!this.props.chartConfig?.legendPosition,
+                        position: this.props.chartConfig?.legendPosition,
+                        align: this.props.chartConfig?.legendAlignment || 'center'
                     },
                     tooltip: chartJsTooltip(this.props.chartConfig?.tooltipText)
                 },

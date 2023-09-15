@@ -16,7 +16,7 @@ const data:ChartObjectInterface[]= [{
     label: "A",
     population: 0
 },{
-    label: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    label: "B",
     population: 2
 },{
     label: "C",
@@ -39,6 +39,8 @@ root.render(<ChartComponent
             constWidth: 100,
             minBarLength: 0
         },
-        domainEmptyBins: true
+        domainEmptyBins: true,
+        legendPosition: 'bottom',
+        legendAlignment: 'center'
     }}
 />)
