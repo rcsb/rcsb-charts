@@ -2,6 +2,13 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.22] - 2024-01-30
+### Bug fix
+- Canvas click bug fixed 
+### Dependency update
+- Multiple dependencies update
+- audit fix
+
 ## [0.2.21] - 2023-09-07
 ### Dependency update
 - Multiple dependencies update
