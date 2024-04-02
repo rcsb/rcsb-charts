@@ -2,6 +2,12 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.23] - 2024-01-30
+### Bug fix
+- Bars with 0 value are not affected by `minBarLength`
+### Dependency update
+- audit fix
+
 ## [0.2.22] - 2024-01-30
 ### Bug fix
 - Canvas click bug fixed 

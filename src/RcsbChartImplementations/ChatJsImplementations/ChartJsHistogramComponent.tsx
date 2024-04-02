@@ -115,7 +115,11 @@ function getChartJsData(data: ChartDataColumnInterface[], chartConfig?: ChartCon
     const N = data[0].y.length;
     return {
         datasets: Array(N).fill(undefined).map((v,n)=>({
-            data: data.filter(d=>d.y[n].value > 0 || chartConfig?.domainEmptyBins).map(d=>({x:d.x as number, y:d.y[n].value, id:d.y[n].id})),
+            data: data.filter(d=>d.y[n].value > 0 || chartConfig?.domainEmptyBins).map(d=>({
+                x:d.x as number,
+                y: d.y[n].value == 0 ? (null as unknown as number) : d.y[n].value,
+                id:d.y[n].id
+            })),
             backgroundColor: data.filter(d=>d.y[n].value > 0 || chartConfig?.domainEmptyBins).map(d=>d.y[n].color ?? "#999"),
             minBarLength: ChartTools.getConfig<number>("minBarLength",  chartConfig?.chartDisplayConfig)
         }))

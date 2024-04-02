@@ -37,7 +37,7 @@ root.render(<ChartComponent
     chartConfig={{
         chartDisplayConfig: {
             constWidth: 100,
-            minBarLength: 0
+            minBarLength: 5
         },
         domainEmptyBins: true
     }}
