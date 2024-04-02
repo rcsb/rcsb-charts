@@ -2,7 +2,7 @@
 
 [Semantic Versioning](https://semver.org/)
 
-## [0.2.23] - 2024-01-30
+## [0.2.23] - 2024-04-02
 ### Bug fix
 - Bars with 0 value are not affected by `minBarLength`
 ### Dependency update
