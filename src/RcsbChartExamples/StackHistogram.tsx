@@ -1,8 +1,5 @@
 import * as React from "react";
 import {createRoot} from "react-dom/client";
-import {
-    VictoryHistogramChartComponent
-} from "../RcsbChartImplementations/VictoryChartImplementations/VictoryHistogramChartComponent";
 import {ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
 import {HistogramChartDataProvider} from "../RcsbChartDataProvider/HistogramChartDataProvider";

@@ -2,9 +2,7 @@ import * as React from "react";
 import {createRoot} from "react-dom/client";
 import {ChartObjectInterface} from "../RcsbChartComponent/ChartConfigInterface";
 import {ChartComponent} from "../RcsbChartComponent/ChartComponent";
-import {
-    VictoryBarChartComponent
-} from "../RcsbChartImplementations/VictoryChartImplementations/VictoryBarChartComponent";
+
 import {BarChartDataProvider} from "../RcsbChartDataProvider/BarChartDataProvider";
 import {ChartJsBarComponent} from "../RcsbChartImplementations/ChatJsImplementations/ChartJsBarComponent";
 

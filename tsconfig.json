@@ -3,7 +3,7 @@
     "rootDir": "src",
     "outDir": "./lib",
     "moduleResolution": "node",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "alwaysStrict": true,
     "noImplicitThis": true,
     "target": "es6",
