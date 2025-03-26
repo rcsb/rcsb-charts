@@ -2,6 +2,19 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.26] - 2025-03-26
+### Improvements
+- Removed bootstrap library
+- Removed bootstrap icons
+- Local icons
+
+## [0.2.25] - 2025-03-26
+### Ignore 
+
+## [0.2.24] - 2024-08-21
+### Cleaning
+- Removed Victory charts
+
 ## [0.2.23] - 2024-04-02
 ### Bug fix
 - Bars with 0 value are not affected by `minBarLength`

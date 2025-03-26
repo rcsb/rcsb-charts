@@ -1,18 +1,18 @@
-import * as React from "react";
+import React, {ReactNode, Component} from "react";
 import * as classes from "./scss/bootstrap-chart-display.module.scss";
 
 interface ChartUiInterface {
     fontFamily:string;
-    children: React.JSX.Element[];
+    children: ReactNode[];
 }
 
-export class ChartUi extends React.Component<ChartUiInterface>{
+export class ChartUi extends Component<ChartUiInterface>{
 
-    render(): React.JSX.Element {
+    render(): ReactNode {
         return (
             <div className={classes.bootstrapRcsbChartComponentScope}>
-                <div className={"mt-3 d-table"}  style={{height:22, fontFamily:this.props.fontFamily}}>
-                    <div className={"d-table-row"}>{this.props.children}</div>
+                <div style={{height:22, fontFamily:this.props.fontFamily}}>
+                    <div style={{display:"flex", alignItems: "center", height:24}}>{this.props.children}</div>
                 </div>
             </div>
         );

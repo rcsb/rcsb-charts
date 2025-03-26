@@ -9,6 +9,7 @@ import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {DataContainer} from "../../Utils/DataContainer";
 import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
+import {ReactNode} from "react";
 
 type ChartDataType = {x: string;y :number;};
 export class ChartJsBarComponent extends React.Component<AbstractChartImplementationInterface> {
@@ -16,11 +17,11 @@ export class ChartJsBarComponent extends React.Component<AbstractChartImplementa
     private static readonly AXIS_LABEL_THR: number = 10;
     private readonly elementId: string = uniqid("canvas_");
     private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
-    private readonly canvasRef: React.RefObject<HTMLCanvasElement> = React.createRef();
-    private readonly rootRef: React.RefObject<HTMLDivElement> = React.createRef();
+    private readonly canvasRef: React.RefObject<HTMLCanvasElement | null> = React.createRef();
+    private readonly rootRef: React.RefObject<HTMLDivElement | null> = React.createRef();
     private chart: Chart<"bar",ChartDataType[],string>;
 
-    render():JSX.Element {
+    render(): ReactNode {
         return (
             <div id={this.elementId} ref={this.rootRef} style={{position:"relative", width: this.props.width, height: this.props.height}} >
                 <canvas ref={this.canvasRef}/>

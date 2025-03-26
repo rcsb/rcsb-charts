@@ -1,12 +1,30 @@
-@import "~bootstrap-icons/font/bootstrap-icons.css";
 
 .bootstrapRcsbChartComponentScope {
-    @import "~bootstrap/scss/bootstrap";
     a {
         color: #337ab7;
         text-decoration: none;
     }
+
     a:hover {
         text-decoration: underline;
     }
+
+    .active {
+       cursor: pointer;
+    }
+
+    .inactive {
+        cursor: default;
+    }
+
+    .active path {
+        fill: #333;
+        opacity: 1;
+    }
+
+    .inactive path {
+        fill: #999;
+        opacity: .75;
+    }
+
 }

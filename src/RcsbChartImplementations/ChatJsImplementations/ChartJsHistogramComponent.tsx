@@ -9,17 +9,18 @@ import {chartJsTooltip} from "./Components/TootlipComponent";
 import {chartJsBarClick} from "./Components/BarComponent";
 import {ChartTools} from "../../RcsbChartDataProvider/ChartTools";
 import {ChartConfigInterface, ChartDisplayConfigInterface} from "../../RcsbChartComponent/ChartConfigInterface";
+import {ReactNode} from "react";
 
 type ChartDataType = {x: number;y :number;};
 export class ChartJsHistogramComponent extends React.Component<AbstractChartImplementationInterface> {
 
     private readonly elementId: string = uniqid("canvas_");
     private readonly dataContainer = new DataContainer<ChartDataColumnInterface[]>();
-    private readonly canvasRef: React.RefObject<HTMLCanvasElement> = React.createRef();
-    private readonly rootRef: React.RefObject<HTMLDivElement> = React.createRef();
+    private readonly canvasRef: React.RefObject<HTMLCanvasElement | null> = React.createRef();
+    private readonly rootRef: React.RefObject<HTMLDivElement | null> = React.createRef();
     private chart: Chart<"bar",ChartDataType[],string>;
 
-    render():JSX.Element {
+    render(): ReactNode {
         return (
             <div ref={this.rootRef} id={this.elementId} style={{position:"relative", width: this.props.width, height: this.props.height}} >
                 <canvas ref={this.canvasRef}/>

@@ -1,21 +1,24 @@
-import * as React from "react";
+import React, {Component, CSSProperties, MouseEvent, ReactNode} from "react";
 
 interface UiButtonInterface {
     activeFlag: boolean;
-    className: string;
-    onCLick: (e:React.MouseEvent)=>void;
+    onCLick: (e:MouseEvent)=>void;
+    style?: CSSProperties;
+    children: ReactNode;
     title?:string;
 }
-export class UiButton extends React.Component<UiButtonInterface> {
+
+export class UiButton extends Component<UiButtonInterface> {
 
     render() {
         return (<div
-            className={"pe-3 align-middle d-table-cell"+(this.props.activeFlag ? "" : " text-black-50 text-opacity-75")}
+            className={this.props.activeFlag ? "active" : "inactive"}
+            style={this.props.style}
             onClick={(e)=>{
                 this.props.onCLick(e);
             }}
         >
-            <i title={this.props.title} role={ this.props.activeFlag ? "button" : undefined} className={"bi "+this.props.className} />
+            {this.props.children}
         </div>);
     }
 }

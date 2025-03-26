@@ -7,6 +7,10 @@ import {UiButton} from "./Components/UiButton";
 import {ChartUi} from "./Components/ChartUi";
 import {UiText} from "./Components/UiText";
 import {isEqual} from "lodash";
+import {ReactNode} from "react";
+import BxPlusCircle from "./icons/bx-plus-circle.svg";
+import BxMinusCircle from "./icons/bx-minus-circle.svg";
+
 export interface ChartInterface {
     data: ChartObjectInterface[][];
     chartConfig?:ChartConfigInterface;
@@ -25,7 +29,7 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
     };
     private readonly EXPAND_NUMBER: number = 10;
 
-    render():JSX.Element {
+    render(): ReactNode {
         this.props.dataProvider.setData(this.props.data, this.state.chartConfig);
         const displayConfig: Partial<ChartDisplayConfigInterface> = this.state.chartConfig?.chartDisplayConfig ?? {};
         const {data,excludedData}: {data: ChartDataColumnInterface[]; excludedData?:ChartDataColumnInterface[];} = this.props.dataProvider.getChartData();
@@ -47,13 +51,12 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
             this.setState({chartConfig: this.props.chartConfig});
     }
 
-    private chartUI(excluded: number): JSX.Element {
+    private chartUI(excluded: number): ReactNode {
         if(!(excluded > 0 || (this.state.chartConfig?.mostPopulatedGroups ?? 0) > (this.props.chartConfig?.mostPopulatedGroups ??0)))
             return (<></>);
         return (<ChartUi fontFamily={ChartTools.getConfig<string>("fontFamily", this.props.chartConfig?.chartDisplayConfig)}>
             <UiButton
                 activeFlag={excluded > 0}
-                className={"bi-plus-circle"}
                 title={"Shift-click to expand all"}
                 onCLick={(e)=>{
                     if(e.shiftKey){
@@ -62,9 +65,11 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
                         this.updateCategories(this.EXPAND_NUMBER);
                     }
                 }}
-            /><UiButton
+            >
+                <BxPlusCircle />
+            </UiButton>
+            <UiButton
                 activeFlag={(this.state.chartConfig?.mostPopulatedGroups ?? 0) > (this.props.chartConfig?.mostPopulatedGroups ??0)}
-                className={"bi-dash-circle"}
                 title={"Shift-click to collapse all"}
                 onCLick={(e)=>{
                     if(e.shiftKey){
@@ -76,8 +81,14 @@ export class ChartComponent extends React.Component <ChartInterface, ChartState>
                             this.updateCategories(0);
                     }
                 }}
-            /><UiText
-                fontSize={ChartTools.getConfig<number>("fontSize",this.props.chartConfig?.chartDisplayConfig)}
+            >
+                <BxMinusCircle />
+            </UiButton>
+            <UiText
+                style={{
+                    fontSize: ChartTools.getConfig<number>("fontSize",this.props.chartConfig?.chartDisplayConfig),
+                    marginLeft: 5
+                }}
                 text={`[ ${ChartTools.digitGrouping(excluded)}+ ]`}
             />
         </ChartUi>);
