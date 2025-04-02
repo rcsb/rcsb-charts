@@ -1,6 +1,6 @@
 {
   "name": "@rcsb/rcsb-charts",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "description": "RCSB Charts",
   "main": "build/dist/charts.js",
   "files": [
@@ -67,8 +67,6 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

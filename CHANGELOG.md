@@ -2,6 +2,10 @@
 
 [Semantic Versioning](https://semver.org/)
 
+## [0.2.27] - 2025-04-02
+### Cleaning
+- Removed bootstrap and bootstrap-icons from `package.json`
+
 ## [0.2.26] - 2025-03-26
 ### Improvements
 - Removed bootstrap library
